@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 interface ClassCardProps {
   title: string;
@@ -11,6 +12,7 @@ interface ClassCardProps {
   time: string;
   students: string;
   code: string;
+  href?: string;
 }
 
 export function ClassCard({
@@ -21,10 +23,10 @@ export function ClassCard({
   time,
   students,
   code,
+  href,
 }: ClassCardProps) {
-  return (
-    <Card className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-gray-300 bg-white  p-0">
-      {/* Header */}
+  const cardContent = (
+    <Card className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-gray-300 bg-white p-0">
       <div className="flex items-center justify-between bg-[#273C97] px-4 py-3 text-white">
         <h2 className="text-3xl font-bold leading-none">{title}</h2>
 
@@ -32,8 +34,6 @@ export function ClassCard({
           {status}
         </Badge>
       </div>
-
-      {/* Body */}
       <CardContent className="space-y-2 px-4 py-3 text-[18px]">
         <div className="flex">
           <span className="w-31.25 font-medium text-black">Class:</span>
@@ -55,7 +55,6 @@ export function ClassCard({
           <span className="text-black">{students}</span>
         </div>
 
-        {/* Footer Code */}
         <div className="mt-3 border-t border-gray-300 pt-3"></div>
         <div className="flex justify-end pt-2">
           <span className="text-sm text-black">code: {code}</span>
@@ -63,4 +62,14 @@ export function ClassCard({
       </CardContent>
     </Card>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="block">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 }
