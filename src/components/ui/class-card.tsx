@@ -32,7 +32,6 @@ export function ClassCard({
           {status}
         </Badge>
       </div>
-
       {/* Body */}
       <CardContent className="space-y-2 px-4 py-3 text-[18px]">
         <div className="flex">
