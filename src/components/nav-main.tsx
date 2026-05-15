@@ -9,8 +9,9 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { CirclePlusIcon, MailIcon } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
-
+import logo from "../../public/project-logo.png"
 export function NavMain({
   items,
 }: {
@@ -23,6 +24,14 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
+          <div className="flex items-center">
+          <Image
+            src={logo}
+            alt="Logo"
+            width={100}
+            height={100}
+          />
+        </div>
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
             <SidebarMenuButton
