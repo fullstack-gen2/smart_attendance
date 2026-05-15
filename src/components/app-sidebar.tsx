@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { NavDocuments } from "@/components/nav-documents"
+import Link from "next/link"
+
 import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
 
 import {
@@ -15,48 +15,61 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ListIcon, ChartBarIcon, FolderIcon, UsersIcon, CameraIcon, FileTextIcon, Settings2Icon, CircleHelpIcon, SearchIcon, DatabaseIcon, FileChartColumnIcon, FileIcon, CommandIcon } from "lucide-react"
+
+import {
+  LayoutDashboardIcon,
+  ListIcon,
+  ChartBarIcon,
+  FolderIcon,
+  UsersIcon,
+  Settings2Icon,
+  CommandIcon,
+} from "lucide-react"
 
 const data = {
   user: {
-    name: "piseth",
-    email: "piseth_suiiii@gmail.com",
-    avatar: "../../public/assets/suii.jpg",
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
   },
+
   navMain: [
     {
-      title: "Create class",
-      url: "#",
-      icon: (
-        <ListIcon
-        />
-      ),
+      title: "Dashboard",
+      url: "/dashboard/create_class",
+      icon: <LayoutDashboardIcon />,
     },
-  ],
-  navSecondary: [
     {
       title: "Settings",
-      url: "#",
-      icon: (
-        <Settings2Icon
-        />
-      ),
+      url: "/settings",
+      icon: <Settings2Icon />,
     },
-  ],
-  documents: [
     {
-      name: "Reports",
-      url: "#",
-      icon: (
-        <FileChartColumnIcon
-        />
-      ),
+      title: "Lifecycle",
+      url: "/lifecycle",
+      icon: <ListIcon />,
     },
-  
+    {
+      title: "Analytics",
+      url: "/analytics",
+      icon: <ChartBarIcon />,
+    },
+    {
+      title: "Projects",
+      url: "/projects",
+      icon: <FolderIcon />,
+    },
+    {
+      title: "Team",
+      url: "/team",
+      icon: <UsersIcon />,
+    },
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -64,21 +77,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
+              className="data-[slot=sidebar-menu-button]:p-1.5"
             >
-              <a href="#">
-                <CommandIcon className="size-5!" />
-                <span className="text-base font-semibold">Piseth</span>
-              </a>
+                <NavMain items={data.navMain} />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
