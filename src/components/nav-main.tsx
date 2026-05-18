@@ -9,7 +9,9 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { CirclePlusIcon, MailIcon } from "lucide-react"
-
+import Image from "next/image"
+import Link from "next/link"
+import logo from "../../public/project-logo.png"
 export function NavMain({
   items,
 }: {
@@ -22,6 +24,14 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
+          <div className="flex items-center">
+          <Image
+            src={logo}
+            alt="Logo"
+            width={100}
+            height={100}
+          />
+        </div>
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
             <SidebarMenuButton
@@ -30,7 +40,7 @@ export function NavMain({
             >
               <CirclePlusIcon
               />
-              <span>Class Information</span>
+              <span>Quick Create</span>
             </SidebarMenuButton>
             <Button
               size="icon"
@@ -47,8 +57,10 @@ export function NavMain({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton tooltip={item.title}>
-                {item.icon}
-                <span>{item.title}</span>
+                <Link href={item.url} className="flex justify-between items-center">
+                  {item.icon}
+                  <span className="pl-2">{item.title}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

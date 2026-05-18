@@ -1,13 +1,14 @@
-import { ClassCard } from "@/components/ui/class-card";
+import { ClassCard } from "@/components/card/classCard";
+import { DropdownMenuCheckboxes } from "@/components/ui/drop-box";
 
 export default function AdminDashboard() {
   return (
     <div className="px-5 py-8">
       <div className="mx-auto w-full">
-        {/* Title */}
-        <h1 className="mb-8 w-full pr-5 text-3xl font-bold text-black">
-          Class Info
-        </h1>
+        <div className="mb-8 flex items-start justify-between gap-4">
+          <h1 className="pr-5 text-3xl font-bold text-black">Class Info</h1>
+          <DropdownMenuCheckboxes />
+        </div>
         {/* Session Badge */}
         <div className="mb-10 inline-flex rounded-full border border-gray-300 bg-white px-6 py-3 text-lg shadow-sm">
           Session: 8:00 AM -12:00 AM
@@ -24,7 +25,7 @@ export default function AdminDashboard() {
               time="8:00AM - 12:00AM"
               students="11/5"
               code={`00${index + 1}`}
-              href={`/dashboard/class/00${index + 1}`}
+              href={`/dashboard/00${index + 1}`}
             />
           ))}
         </div>
@@ -45,7 +46,7 @@ export default function AdminDashboard() {
               time="8:00AM - 12:00AM"
               students="11/5"
               code={`00${index + 1}`}
-              href={`/dashboard/class/00${index + 1}`}
+              href={`/dashboard/00${index + 1}`}
             />
           ))}
         </div>
@@ -65,7 +66,7 @@ export default function AdminDashboard() {
               time="8:00AM - 12:00AM"
               students="11/5"
               code={`00${index + 1}`}
-              href={`/dashboard/class/00${index + 1}`}
+              href={`/dashboard/00${index + 1}`}
             />
           ))}
         </div>

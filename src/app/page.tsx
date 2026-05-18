@@ -1,7 +1,8 @@
+
 export default function Home() {
   return (
     <div>
-      Hello
+      <h1>Welcome To Smart Attendance System</h1>
     </div>
   )
 }
