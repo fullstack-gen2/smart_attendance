@@ -21,9 +21,11 @@ export function DropdownMenuCheckboxes() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline"> <GrMenu/> </Button>
+        <Button variant="outline" className="px-3">
+          <GrMenu />
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40 absolute right-[0%]">
+      <DropdownMenuContent align="end" sideOffset={8} className="w-40 p-1">
         <DropdownMenuGroup>
           <DropdownMenuCheckboxItem
             checked={showStatusBar ?? false}

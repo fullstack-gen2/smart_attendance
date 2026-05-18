@@ -1,26 +1,75 @@
-import { classInfo } from "@/lib/mockupData/data";
+// components/ui/class-card.tsx
 
-export default function ClassCard() {
-  return (
-    <>
-        {
-            classInfo.map((cls)=>(
-                <article key={cls.code} className="rounded-xl overflow-hidden border shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-lg">
-                    <div className= "flex justify-between items-center bg-blue-600 text-white py-2 px-2">
-                        <h1 className="font-bold">{cls.name}</h1>
-                        <span className="text-sm">{cls.status == true ? "active": "complete"}</span>
-                    </div>
-                    <div className="px-4 py-2">
-                        <p className="flex justify-between">Room: <span>{cls.room}</span></p>
-                        <p className="flex justify-between">Shift: <span>{cls.shift}</span></p>
-                        <p className="flex justify-between">Time: <span>{cls.time}</span></p>
-                        <p className="flex justify-between">Students: <span>{cls.total_student}</span></p>
-                    </div>  
-                    <hr className="px-2 " />
-                    <span className="text-sm flex justify-end pr-2 py-2">code: {cls.code}</span>
-                </article>
-            ))
-        }
-    </>
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+
+interface ClassCardProps {
+  title: string;
+  status?: string;
+  classNameValue: string;
+  shift: string;
+  time: string;
+  students: string;
+  code: string;
+  href?: string;
+}
+
+export function ClassCard({
+  title,
+  status = "Active",
+  classNameValue,
+  shift,
+  time,
+  students,
+  code,
+  href,
+}: ClassCardProps) {
+  const cardContent = (
+    <Card className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-gray-300 bg-white p-0">
+      <div className="flex items-center justify-between bg-[#273C97] px-4 py-3 text-white">
+        <h2 className="text-3xl font-bold leading-none">{title}</h2>
+
+        <Badge className="bg-transparent p-0 text-sm font-medium text-white hover:bg-transparent">
+          {status}
+        </Badge>
+      </div>
+      <CardContent className="space-y-2 px-4 py-3 text-[18px]">
+        <div className="flex">
+          <span className="w-31.25 font-medium text-black">Class:</span>
+          <span className="text-black">{classNameValue}</span>
+        </div>
+
+        <div className="flex">
+          <span className="w-31.25 font-medium text-black">Shift:</span>
+          <span className="text-black">{shift}</span>
+        </div>
+
+        <div className="flex">
+          <span className="w-31.25 font-medium text-black">Time:</span>
+          <span className="text-black">{time}</span>
+        </div>
+
+        <div className="flex">
+          <span className="w-31.25 font-medium text-black">Student (T/F):</span>
+          <span className="text-black">{students}</span>
+        </div>
+
+        <div className="mt-3 border-t border-gray-300 pt-3"></div>
+        <div className="flex justify-end pt-2">
+          <span className="text-sm text-black">code: {code}</span>
+        </div>
+      </CardContent>
+    </Card>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="block">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 }

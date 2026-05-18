@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -36,8 +35,13 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/dashboard/create_class",
+      url: "/dashboard",
       icon: <LayoutDashboardIcon />,
+    },
+    {
+      title: "Create Class",
+      url: "/dashboard/create_class",
+      icon: <CommandIcon />,
     },
     {
       title: "Settings",
