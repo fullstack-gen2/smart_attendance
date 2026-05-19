@@ -53,7 +53,11 @@ export const columns: ColumnDef<AttendanceList>[] = [
     header: "Gender",
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "phoneNumber",
+    header: "Phone Number",
+  },
+  {
+    accessorKey: "dateOfBirth",
+    header: "Date of birth",
   },
 ];

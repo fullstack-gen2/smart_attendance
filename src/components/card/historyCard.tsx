@@ -37,7 +37,7 @@ export function HistoryCard({
 
         <div className="flex">
           <span className="w-[128px] font-medium text-black">
-            Student (M/F):
+            Students (T/F):
           </span>
           <span className="text-black">{studentMF}</span>
         </div>

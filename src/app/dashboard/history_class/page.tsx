@@ -24,7 +24,7 @@ export default function AdminDashboard() {
               title="Full Stack"
               status="Completed"
               session="8:00 AM - 12:00 PM"
-              studentMF="10/7"
+              studentMF="17/07"
               Attendance="15/17"
               date="Jan 28, 2026"
               href={`/class/00${index + 1}`}
@@ -45,7 +45,7 @@ export default function AdminDashboard() {
               title="Full Stack"
               status="Completed"
               session="1:30 PM - 5:30 PM"
-              studentMF="10/7"
+              studentMF="17/07"
               Attendance="15/17"
               date="Jan 28, 2026"
               href={`/class/00${index + 1}`}
@@ -65,7 +65,7 @@ export default function AdminDashboard() {
               title="Full Stack"
               status="Completed"
               session="6:00 PM - 8:30 PM"
-              studentMF="10/7"
+              studentMF="17/07"
               Attendance="15/17"
               date="Jan 28, 2026"
               href={`/class/00${index + 1}`}

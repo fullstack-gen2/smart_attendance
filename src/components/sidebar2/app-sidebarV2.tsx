@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useParams } from "next/navigation";
 import {
   AudioWaveform,
   Command,
@@ -9,7 +10,7 @@ import {
 } from "lucide-react";
 
 import { NavMain } from "@/components/sidebar2/nav-main";
-import { NavProjects } from "@/components/sidebar2/nav-projects";
+
 import { NavUser } from "@/components/sidebar2/nav-user";
 import { TeamSwitcher } from "@/components/sidebar2/team-switcher";
 import {
@@ -60,8 +61,7 @@ const data = {
           url: "#",
         },
         {
-          title: "class report",
-          url: "#",
+          title: "Class report",
         },
       ],
     },
@@ -69,13 +69,32 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const params = useParams<{ classcode?: string | string[] }>();
+  const classcode = Array.isArray(params.classcode)
+    ? params.classcode[0]
+    : params.classcode;
+
+  const navMain = data.navMain.map((section) => ({
+    ...section,
+    items: section.items?.map((item) =>
+      item.title === "Students Attendance List"
+        ? { ...item, url: classcode ? `/class/${classcode}` : "/class" }
+        : item.title === "Class report"
+          ? {
+              ...item,
+              url: classcode ? `/class/${classcode}/report` : "/class/report",
+            }
+          : item,
+    ),
+  }));
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={navMain} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

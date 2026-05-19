@@ -43,21 +43,19 @@ export default async function StartPage() {
             <p>Class Code:A001</p>
           </div>
         </div>
-        <p className="mt-3 text-l text-[#1f1f1f]">Class: Full-Stack</p>
+        <p className="mt-3 text-l text-[#1f1f1f]">Class: Bachelor</p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
-          ការបញ្ជីវត្តមានសិស្ស-Student Attendance List-April
+          Student Report List
         </h2>
       </section>
-      <div className="mx-auto w-full max-w-6xl px-2 text-gray-500">
-        <DataTable columns={columns} data={data} />
-        <div className="mt-6 flex justify-center">
-          <Link
-            href="/dashboard/attendancetaking"
-            className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
-          >
-            Start Session
-          </Link>
-        </div>
+      <div className="mx-auto w-full max-w-6xl px-2 text-black">
+        <DataTable
+          columns={columns}
+          data={data}
+          showStudentActions
+          showAddStudentButton={false}
+          studentSummaryText="Active student : 09/11"
+        />
       </div>
     </main>
   );
