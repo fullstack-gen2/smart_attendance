@@ -3,85 +3,147 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import Image from "next/image"
 
-const invoices = [
+enum AttendanceStatus{
+  PRESENT = "present",
+  LATE    = "late",
+  PENDING = "pending"
+}
+
+type Student = {
+  id: string
+  profile: string
+  name: string
+  gender: string
+  status: AttendanceStatus
+}
+
+const data: Student[] = [
   {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
+    id: "INV001",
+    profile:
+      "https://i.pinimg.com/736x/25/60/e1/2560e1cbf27a9cfa78faccde40971482.jpg",
+    name: "Chan Thorn",
+    gender: "Male",
+    status: AttendanceStatus.PENDING,
   },
   {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
+    id: "INV002",
+    profile:
+      "https://i.pinimg.com/1200x/90/74/a6/9074a68f86e0f006a9ec7183530e66c0.jpg",
+    name: "Dara",
+    gender: "Male",
+    status: AttendanceStatus.PENDING,
   },
   {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
+    id: "INV003",
+    profile:
+      "https://i.pinimg.com/736x/5f/79/ea/5f79eae006365020a1cf50534a1b4314.jpg",
+    name: "Sokha",
+    gender: "Female",
+    status: AttendanceStatus.PRESENT,
   },
   {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
+    id: "INV004",
+    profile:
+      "https://i.pinimg.com/1200x/75/42/fe/7542fec761bbb72957ccae0839476c4a.jpg",
+    name: "Nita",
+    gender: "Female",
+    status: AttendanceStatus.LATE,
   },
   {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
+    id: "INV005",
+    profile:
+      "https://i.pinimg.com/1200x/75/42/fe/7542fec761bbb72957ccae0839476c4a.jpg",
+    name: "Nita",
+    gender: "Female",
+    status: AttendanceStatus.PRESENT,
   },
 ]
 
-export function TableDemo() {
+export function AttendanceCheckingList() {
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
-      <TableHeader>
+      <TableCaption>Student attendance list</TableCaption>
+
+      <TableHeader className="bg-gray-100">
         <TableRow>
-          <TableHead className="w-25">Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+          <TableHead className="text-center">No.</TableHead>
+          <TableHead>ID</TableHead>
+          <TableHead>Profile</TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Gender</TableHead>
+          <TableHead className="flex justify-between items-center w-37.5">
+            <span>P</span>
+            <span>PM</span>
+            <span>L</span>
+          </TableHead>
+          <TableHead className="text-center">Status</TableHead>
         </TableRow>
       </TableHeader>
+
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+        {data.map((student, index) => (
+          <TableRow key={student.id}>
+            <TableCell className="font-medium text-center">
+              {String(index + 1).padStart(3, "0")}
+            </TableCell>
+
+            {/* Dynamic ID */}
+            <TableCell>{student.id}</TableCell>
+
+            {/* Dynamic Profile */}
+            <TableCell>
+              <Image
+                src={student.profile}
+                alt={student.name}
+                width={50}
+                height={50}
+                className="rounded-full object-cover w-12 h-12"
+              />
+            </TableCell>
+
+            {/* Dynamic Name */}
+            <TableCell>{student.name}</TableCell>
+
+            {/* Dynamic Gender */}
+            <TableCell>{student.gender}</TableCell>
+
+            <TableCell className="w-37.5">
+              <div className="flex justify-between items-center ">
+                  <input
+                    type="radio"
+                    name={student.id}
+                    checked={student.status === "present"}
+                    readOnly
+                  />
+                  <input
+                    type="radio"
+                    name={student.id}
+                    readOnly
+                  />
+
+                  <input
+                    type="radio"
+                    name={student.id}
+                    readOnly
+                  />
+              </div>
+            </TableCell>
+
+            <TableCell className="text-center">
+              <span className={` ${student.status === "pending"?"text-gray-400":"text-black"}`}>
+                {student.status}
+              </span>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   )
 }

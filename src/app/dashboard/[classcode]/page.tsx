@@ -1,5 +1,6 @@
 import { columns } from "@/components/classdetail/column";
 import { DataTable } from "@/components/classdetail/data-table";
+import AlertDialogDemo from "@/components/popup/popup_session";
 import { AttendanceList } from "@/lib/mockupdatafordatatable";
 import Link from "next/link";
 
@@ -51,13 +52,12 @@ export default async function StartPage() {
       <div className="mx-auto w-full max-w-6xl text-gray-500">
         <DataTable columns={columns} data={data} />
         <div className="mt-6 flex justify-center">
-          <Link
-            href={``}
-            className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
-          >
-            Start Session (merg)
-            <h1>I am MeyNeang</h1>
-          </Link>
+          
+            <AlertDialogDemo
+              btnName="Start Session"
+              title="Start Session Now"
+              firstTime="8:00"
+              secondTime="12:00"/>
         </div>
       </div>
     </main>
