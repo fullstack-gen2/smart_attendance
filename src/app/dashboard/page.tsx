@@ -25,7 +25,7 @@ export default function AdminDashboard() {
               time="8:00AM - 12:00AM"
               students="11/5"
               code={`00${index + 1}`}
-              href={`/dashboard/00${index + 1}`}
+              href={`/class/00${index + 1}`}
             />
           ))}
         </div>
@@ -46,7 +46,7 @@ export default function AdminDashboard() {
               time="8:00AM - 12:00AM"
               students="11/5"
               code={`00${index + 1}`}
-              href={`/dashboard/00${index + 1}`}
+              href={`/class/00${index + 1}`}
             />
           ))}
         </div>
@@ -66,7 +66,7 @@ export default function AdminDashboard() {
               time="8:00AM - 12:00AM"
               students="11/5"
               code={`00${index + 1}`}
-              href={`/dashboard/00${index + 1}`}
+              href={`/class/00${index + 1}`}
             />
           ))}
         </div>

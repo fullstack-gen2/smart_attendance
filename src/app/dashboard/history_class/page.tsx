@@ -27,7 +27,7 @@ export default function AdminDashboard() {
               studentMF="10/7"
               Attendance="15/17"
               date="Jan 28, 2026"
-              href={`/dashboard/00${index + 1}`}
+              href={`/class/00${index + 1}`}
             />
           ))}
         </div>
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
               studentMF="10/7"
               Attendance="15/17"
               date="Jan 28, 2026"
-              href={`/dashboard/00${index + 1}`}
+              href={`/class/00${index + 1}`}
             />
           ))}
         </div>
@@ -68,7 +68,7 @@ export default function AdminDashboard() {
               studentMF="10/7"
               Attendance="15/17"
               date="Jan 28, 2026"
-              href={`/dashboard/00${index + 1}`}
+              href={`/class/00${index + 1}`}
             />
           ))}
         </div>
