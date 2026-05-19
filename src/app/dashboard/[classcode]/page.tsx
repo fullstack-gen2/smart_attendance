@@ -52,10 +52,10 @@ export default async function StartPage() {
         <DataTable columns={columns} data={data} />
         <div className="mt-6 flex justify-center">
           <Link
-            href="/dashboard/attendancetaking"
+            href={``}
             className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
           >
-            Start Session
+            Start Session (merg)
           </Link>
         </div>
       </div>

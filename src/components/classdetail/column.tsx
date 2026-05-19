@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
+import Image from "next/image";
 
 export const columns: ColumnDef<AttendanceList>[] = [
   {
@@ -26,10 +27,12 @@ export const columns: ColumnDef<AttendanceList>[] = [
       }
 
       return (
-        <img
+        <Image
+          width={50}
+          height={50}
           src={profileUrl}
           alt={`${row.original.name} profile`}
-          className="h-10 w-10 rounded-full object-cover"
+          className="h-10 w-10 rounded-xl object-cover"
         />
       );
     },
