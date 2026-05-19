@@ -7,64 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { data } from "@/lib/mockupData/student"
 import Image from "next/image"
 
-enum AttendanceStatus{
-  PRESENT = "present",
-  LATE    = "late",
-  PENDING = "pending"
-}
-
-type Student = {
-  id: string
-  profile: string
-  name: string
-  gender: string
-  status: AttendanceStatus
-}
-
-const data: Student[] = [
-  {
-    id: "INV001",
-    profile:
-      "https://i.pinimg.com/736x/25/60/e1/2560e1cbf27a9cfa78faccde40971482.jpg",
-    name: "Chan Thorn",
-    gender: "Male",
-    status: AttendanceStatus.PENDING,
-  },
-  {
-    id: "INV002",
-    profile:
-      "https://i.pinimg.com/1200x/90/74/a6/9074a68f86e0f006a9ec7183530e66c0.jpg",
-    name: "Dara",
-    gender: "Male",
-    status: AttendanceStatus.PENDING,
-  },
-  {
-    id: "INV003",
-    profile:
-      "https://i.pinimg.com/736x/5f/79/ea/5f79eae006365020a1cf50534a1b4314.jpg",
-    name: "Sokha",
-    gender: "Female",
-    status: AttendanceStatus.PRESENT,
-  },
-  {
-    id: "INV004",
-    profile:
-      "https://i.pinimg.com/1200x/75/42/fe/7542fec761bbb72957ccae0839476c4a.jpg",
-    name: "Nita",
-    gender: "Female",
-    status: AttendanceStatus.LATE,
-  },
-  {
-    id: "INV005",
-    profile:
-      "https://i.pinimg.com/1200x/75/42/fe/7542fec761bbb72957ccae0839476c4a.jpg",
-    name: "Nita",
-    gender: "Female",
-    status: AttendanceStatus.PRESENT,
-  },
-]
 
 export function AttendanceCheckingList() {
   return (
@@ -94,10 +39,8 @@ export function AttendanceCheckingList() {
               {String(index + 1).padStart(3, "0")}
             </TableCell>
 
-            {/* Dynamic ID */}
             <TableCell>{student.id}</TableCell>
 
-            {/* Dynamic Profile */}
             <TableCell>
               <Image
                 src={student.profile}
@@ -108,10 +51,8 @@ export function AttendanceCheckingList() {
               />
             </TableCell>
 
-            {/* Dynamic Name */}
             <TableCell>{student.name}</TableCell>
 
-            {/* Dynamic Gender */}
             <TableCell>{student.gender}</TableCell>
 
             <TableCell className="w-37.5">
