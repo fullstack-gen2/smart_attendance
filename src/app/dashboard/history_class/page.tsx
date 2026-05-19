@@ -25,7 +25,7 @@ export default function AdminDashboard() {
               status="Completed"
               session="8:00 AM - 12:00 PM"
               studentMF="10/7"
-              studentsAttended="15/17"
+              Attendance="15/17"
               date="Jan 28, 2026"
               href={`/dashboard/00${index + 1}`}
             />
@@ -46,7 +46,7 @@ export default function AdminDashboard() {
               status="Completed"
               session="1:30 PM - 5:30 PM"
               studentMF="10/7"
-              studentsAttended="15/17"
+              Attendance="15/17"
               date="Jan 28, 2026"
               href={`/dashboard/00${index + 1}`}
             />
@@ -66,7 +66,7 @@ export default function AdminDashboard() {
               status="Completed"
               session="6:00 PM - 8:30 PM"
               studentMF="10/7"
-              studentsAttended="15/17"
+              Attendance="15/17"
               date="Jan 28, 2026"
               href={`/dashboard/00${index + 1}`}
             />

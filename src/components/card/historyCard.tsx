@@ -7,7 +7,7 @@ interface HistoryCardProps {
   status?: string;
   session: string;
   studentMF: string;
-  studentsAttended: string;
+  Attendance: string;
   date: string;
   href?: string;
 }
@@ -17,7 +17,7 @@ export function HistoryCard({
   status = "Completed",
   session,
   studentMF,
-  studentsAttended,
+  Attendance,
   date,
   href,
 }: HistoryCardProps) {
@@ -31,23 +31,29 @@ export function HistoryCard({
       </div>
       <CardContent className="space-y-2 px-4 py-3 text-[18px]">
         <div className="flex">
-          <span className="w-40 font-medium text-black">Session:</span>
+          <span className="w-[128px] font-medium text-black">Session:</span>
           <span className="whitespace-nowrap text-black">{session}</span>
         </div>
+
         <div className="flex">
-          <span className="w-40 font-medium text-black">Student (M/F):</span>
+          <span className="w-[128px] font-medium text-black">
+            Student (M/F):
+          </span>
           <span className="text-black">{studentMF}</span>
         </div>
+
         <div className="flex">
-          <span className="w-40 font-medium text-black">Students Attended:</span>
-          <span className="text-black">{studentsAttended}</span>
+          <span className="w-[128px] font-medium text-black">Attendance:</span>
+          <span className="text-black">{Attendance}</span>
         </div>
+
         <div className="flex">
-          <span className="w-40 font-medium text-black">Date:</span>
+          <span className="w-[128px] font-medium text-black">Date:</span>
           <span className="text-black">{date}</span>
         </div>
 
         <div className="mt-3 border-t border-gray-300 pt-3"></div>
+
         <div className="flex justify-end pt-2">
           <span className="text-sm text-blue-600 underline">View Detail</span>
         </div>
