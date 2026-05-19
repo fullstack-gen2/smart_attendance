@@ -56,6 +56,7 @@ export default async function StartPage() {
             className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
           >
             Start Session (merg)
+            <h1>I am MeyNeang</h1>
           </Link>
         </div>
       </div>
