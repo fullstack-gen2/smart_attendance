@@ -6,18 +6,18 @@ import { DataTable } from "@/components/classdetail/data-table";
 import Link from "next/link";
 
 async function getData(): Promise<ReportAttendanceRow[]> {
-  const dailyMarks = [
-    { p: "✓", pm: "-", l: "-" },
-    { p: "-", pm: "✓", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "-", pm: "-", l: "✓" },
-    { p: "✓", pm: "-", l: "-" },
+  const weeklyStats = [
+    { p: 3, pm: 0, l: 0 },
+    { p: 1, pm: 2, l: 0 },
+    { p: 3, pm: 0, l: 0 },
+    { p: 3, pm: 0, l: 0 },
+    { p: 2, pm: 1, l: 0 },
+    { p: 0, pm: 2, l: 1 },
+    { p: 3, pm: 0, l: 0 },
+    { p: 3, pm: 1, l: 0 },
+    { p: 2, pm: 0, l: 1 },
+    { p: 3, pm: 0, l: 0 },
+    { p: 2, pm: 1, l: 0 },
   ];
 
   return Array.from({ length: 11 }).map((_, index) => ({
@@ -27,9 +27,9 @@ async function getData(): Promise<ReportAttendanceRow[]> {
     gender: index % 2 === 0 ? "Male" : "Female",
     profile:
       "https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg",
-    p: dailyMarks[index].p,
-    pm: dailyMarks[index].pm,
-    l: dailyMarks[index].l,
+    p: weeklyStats[index].p,
+    pm: weeklyStats[index].pm,
+    l: weeklyStats[index].l,
     status: "active",
   }));
 }
@@ -55,14 +55,11 @@ export default async function StartPage() {
               Class List
             </Link>
           </div>
-          <div className="pt-6 text-right text-l leading-tight text-[#1f1f1f]">
-            <p>Date: 24/ April/ 2026</p>
-            <p>Student(T/F): 11/03</p>
-          </div>
+          <div className="pt-6 text-right text-l leading-tight text-[#1f1f1f]"></div>
         </div>
         <p className="mt-3 text-l text-[#1f1f1f]">Class: Bachelor</p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
-          Student Report List
+          Student Report List-April-Week 1
         </h2>
       </section>
       <div className="mx-auto w-full max-w-6xl px-2 text-black">
@@ -71,8 +68,13 @@ export default async function StartPage() {
           data={data}
           showStudentActions
           showAddStudentButton={false}
-          studentSummaryText="Active student : 09/11"
+          studentSummaryText="Total Date : 3 days"
         />
+          <div className="mt-2 text-sm leading-relaxed">
+          <p>P stand for Present</p>
+          <p>PM stand for Permission</p>
+          <p>L stand for Late</p>
+        </div>
       </div>
     </main>
   );

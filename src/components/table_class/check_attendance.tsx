@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -14,8 +13,6 @@ import Image from "next/image"
 export function AttendanceCheckingList() {
   return (
     <Table>
-      <TableCaption>Student attendance list</TableCaption>
-
       <TableHeader className="bg-gray-100">
         <TableRow>
           <TableHead className="text-center">No.</TableHead>

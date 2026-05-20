@@ -39,7 +39,7 @@ const AlertDialogDemo = ({btnName,title, firstTime, secondTime}: AlertType) => {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction>
             
-            <Link href={"dashboard/attendance_taking"}>
+            <Link href={"/class/001/attendance_taking"}>
                 Start
             </Link>
             </AlertDialogAction>

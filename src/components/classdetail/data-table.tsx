@@ -37,6 +37,7 @@ interface DataTableProps<TData, TValue> {
   showStudentActions?: boolean;
   showAddStudentButton?: boolean;
   studentSummaryText?: string;
+  showNote?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -45,6 +46,7 @@ export function DataTable<TData, TValue>({
   showStudentActions = false,
   showAddStudentButton = true,
   studentSummaryText,
+  showNote = true,
 }: DataTableProps<TData, TValue>) {
   const params = useParams<{ classcode?: string | string[] }>();
   const classcode = Array.isArray(params.classcode)
@@ -106,14 +108,20 @@ export function DataTable<TData, TValue>({
                   Day Report
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                Weekly Report
+              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
+                <Link href={classcode ? `/class/${classcode}/report/weekly_report` : "/class"}>
+                  Weekly Report
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                Monthly Report
+              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
+                <Link href={classcode ? `/class/${classcode}/report/monthly_report` : "/class"}>
+                  Monthly Report
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                Student Warning
+              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
+                <Link href={classcode ? `/class/${classcode}/report/warning_report` : "/class"}>
+                  Student Warning
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -121,17 +129,21 @@ export function DataTable<TData, TValue>({
       </div>
       {showStudentActions && (
         <div className="mb-4 flex items-end justify-between gap-4">
-          <div className="text-sm">
-            <p>
-              <span className="font-medium text-black">Note:</span>
-              <span className="ml-2 text-black">
-                Student with black name is present
-              </span>
-            </p>
-            <p className="pl-12 text-gray-500">
-              Student with gray name is not present yet
-            </p>
-          </div>
+          {showNote ? (
+            <div className="text-sm">
+              <p className="font-medium text-black">
+                Note:
+                <span className="ml-2 font-normal text-red-500">
+                  Student with red name is already reach warning
+                </span>
+              </p>
+              <p className="pl-12 text-amber-500">
+                Student with yellow name is almost reach warning
+              </p>
+            </div>
+          ) : (
+            <div></div>
+          )}
           {showAddStudentButton ? (
             <button
               type="button"

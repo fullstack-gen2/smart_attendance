@@ -74,6 +74,14 @@ export default async function StartPage() {
           studentSummaryText="Active student : 09/11"
         />
       </div>
+      <section className="mx-auto flex w-full max-w-6xl items-center justify-end gap-4 py-5">
+        <Link
+          href={`/class/001/attendance_taking/attendance_list`}
+          className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
+        >
+          Amendment
+        </Link>
+      </section>
     </main>
   );
 }
