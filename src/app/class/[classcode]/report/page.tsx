@@ -1,6 +1,5 @@
 import { columns } from "@/components/classdetail/column";
 import { DataTable } from "@/components/classdetail/data-table";
-import AlertDialogDemo from "@/components/popup/popup_session";
 import { AttendanceList } from "@/lib/mockupdatafordatatable";
 import Link from "next/link";
 
@@ -10,10 +9,10 @@ async function getData(): Promise<AttendanceList[]> {
     order: index + 1,
     id: `728ed52f-${index + 1}`,
     name: `Student ${index + 1}`,
-    amount: 100 + index * 10,
     gender: index % 2 === 0 ? "Male" : "Female",
-    status: "pending" as const,
     profile: `https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg`,
+    phoneNumber: `(205) 555-01${String(index + 10).padStart(2, "0")}`,
+    dateOfBirth: "Feb 08 2012",
   }));
 }
 
@@ -21,8 +20,8 @@ export default async function StartPage() {
   const data = await getData();
 
   return (
-    <main className="min-h-screen bg-white px-4 py-6 sm:px-6 lg:px-10">
-      <section className="mx-auto mb-2 w-full max-w-6xl  bg-[#ffffff] px-5 ">
+    <main className="min-h-screen bg-white px-2 py-6 sm:px-3 lg:px-4">
+      <section className="mx-auto mb-2 w-full max-w-6xl bg-[#ffffff] px-2">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h1 className="mt-4 mb-4 text-3xl font-semibold tracking-tight text-rose-950 sm:text-4xl">
@@ -44,21 +43,19 @@ export default async function StartPage() {
             <p>Class Code:A001</p>
           </div>
         </div>
-        <p className="mt-3 text-l text-[#1f1f1f]">Class: Full-Stack</p>
+        <p className="mt-3 text-l text-[#1f1f1f]">Class: Bachelor</p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
-          ការបញ្ជីវត្តមានសិស្ស-Student Attendance List-April
+          Student Report List
         </h2>
       </section>
-      <div className="mx-auto w-full max-w-6xl text-gray-500">
-        <DataTable columns={columns} data={data} />
-        <div className="mt-6 flex justify-center">
-          
-            <AlertDialogDemo
-              btnName="Start Session"
-              title="Start Session Now"
-              firstTime="8:00"
-              secondTime="12:00"/>
-        </div>
+      <div className="mx-auto w-full max-w-6xl px-2 text-black">
+        <DataTable
+          columns={columns}
+          data={data}
+          showStudentActions
+          showAddStudentButton={false}
+          studentSummaryText="Active student : 09/11"
+        />
       </div>
     </main>
   );
