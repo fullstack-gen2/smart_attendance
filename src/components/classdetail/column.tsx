@@ -5,11 +5,22 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
+import Image from "next/image";
 
 export const columns: ColumnDef<AttendanceList>[] = [
   {
     accessorKey: "order",
-    header: "No.",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          No.
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "id",
@@ -26,10 +37,12 @@ export const columns: ColumnDef<AttendanceList>[] = [
       }
 
       return (
-        <img
+        <Image
+          width={50}
+          height={50}
           src={profileUrl}
           alt={`${row.original.name} profile`}
-          className="h-10 w-10 rounded-full object-cover"
+          className="h-10 w-10 rounded-xl object-cover"
         />
       );
     },
@@ -53,7 +66,11 @@ export const columns: ColumnDef<AttendanceList>[] = [
     header: "Gender",
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "phoneNumber",
+    header: "Phone Number",
+  },
+  {
+    accessorKey: "dateOfBirth",
+    header: "Date of birth",
   },
 ];
