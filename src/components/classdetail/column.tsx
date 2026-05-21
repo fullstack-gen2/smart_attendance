@@ -10,7 +10,17 @@ import Image from "next/image";
 export const columns: ColumnDef<AttendanceList>[] = [
   {
     accessorKey: "order",
-    header: "No.",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          No.
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "id",

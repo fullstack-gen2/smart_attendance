@@ -3,33 +3,20 @@ import {
   ReportAttendanceRow,
 } from "@/components/classdetail/report-column";
 import { DataTable } from "@/components/classdetail/data-table";
+import { weeklyReportAttendance } from "@/lib/mockupData/attendance";
+import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
 
 async function getData(): Promise<ReportAttendanceRow[]> {
-  const weeklyStats = [
-    { p: 3, pm: 0, l: 0 },
-    { p: 1, pm: 2, l: 0 },
-    { p: 3, pm: 0, l: 0 },
-    { p: 3, pm: 0, l: 0 },
-    { p: 2, pm: 1, l: 0 },
-    { p: 0, pm: 2, l: 1 },
-    { p: 3, pm: 0, l: 0 },
-    { p: 3, pm: 1, l: 0 },
-    { p: 2, pm: 0, l: 1 },
-    { p: 3, pm: 0, l: 0 },
-    { p: 2, pm: 1, l: 0 },
-  ];
-
-  return Array.from({ length: 11 }).map((_, index) => ({
+  return students.map((student, index) => ({
     order: index + 1,
-    id: `728ed52f-${index + 1}`,
-    name: `Student ${index + 1}`,
-    gender: index % 2 === 0 ? "Male" : "Female",
-    profile:
-      "https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg",
-    p: weeklyStats[index].p,
-    pm: weeklyStats[index].pm,
-    l: weeklyStats[index].l,
+    id: student.id,
+    name: student.name,
+    gender: student.gender,
+    profile: student.profile,
+    p: weeklyReportAttendance[index]?.p ?? 0,
+    pm: weeklyReportAttendance[index]?.pm ?? 0,
+    l: weeklyReportAttendance[index]?.l ?? 0,
     status: "active",
   }));
 }
@@ -70,7 +57,7 @@ export default async function StartPage() {
           showAddStudentButton={false}
           studentSummaryText="Total Date : 3 days"
         />
-          <div className="mt-2 text-sm leading-relaxed">
+        <div className="mt-2 text-sm leading-relaxed">
           <p>P stand for Present</p>
           <p>PM stand for Permission</p>
           <p>L stand for Late</p>

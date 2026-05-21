@@ -9,5 +9,7 @@ export type Student = {
   profile: string
   name: string
   gender: string
+  phone: string
+  dateOfBirth: string
   status: AttendanceStatus
 }
