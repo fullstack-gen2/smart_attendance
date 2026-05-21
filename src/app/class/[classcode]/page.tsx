@@ -2,18 +2,18 @@ import { columns } from "@/components/classdetail/column";
 import { DataTable } from "@/components/classdetail/data-table";
 import AlertDialogDemo from "@/components/popup/popup_session";
 import { AttendanceList } from "@/lib/mockupdatafordatatable";
+import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
 
 async function getData(): Promise<AttendanceList[]> {
-  // Fetch data from your API here.
-  return Array.from({ length: 11 }).map((_, index) => ({
+  return students.map((student, index) => ({
     order: index + 1,
-    id: `728ed52f-${index + 1}`,
-    name: `Student ${index + 1}`,
-    gender: index % 2 === 0 ? "Male" : "Female",
-    profile: `https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg`,
-    phoneNumber: `(205) 555-01${String(index + 10).padStart(2, "0")}`,
-    dateOfBirth: "Feb 08 2012",
+    id: student.id,
+    name: student.name,
+    gender: student.gender,
+    profile: student.profile,
+    phoneNumber: student.phone,
+    dateOfBirth: student.dateOfBirth,
   }));
 }
 

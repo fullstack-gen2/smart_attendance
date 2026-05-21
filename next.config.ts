@@ -5,6 +5,7 @@ const nextConfig = {
     root: __dirname,
   },
   images: {
+    domains: ["i.pinimg.com", "i1-c.pinimg.com"],
     remotePatterns: [
       {
         protocol: "https",

@@ -16,17 +16,37 @@ export type ReportAttendanceRow = {
   l: number | string;
   status: string;
   nameTone?: "normal" | "warning" | "danger";
+  isAlertRow?: boolean;
 };
 
 export const reportColumns: ColumnDef<ReportAttendanceRow>[] = [
   {
     accessorKey: "order",
-    header: "No.",
-    cell: ({ row }) => row.original.order,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          No.
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <span className={row.original.isAlertRow ? "text-[#ff0000]" : "text-black"}>
+        {row.original.order}
+      </span>
+    ),
   },
   {
     accessorKey: "id",
     header: "Id",
+    cell: ({ row }) => (
+      <span className={row.original.isAlertRow ? "text-[#ff0000]" : "text-black"}>
+        {row.original.id}
+      </span>
+    ),
   },
   {
     accessorKey: "profile",
@@ -55,6 +75,9 @@ export const reportColumns: ColumnDef<ReportAttendanceRow>[] = [
       );
     },
     cell: ({ row }) => {
+      if (row.original.isAlertRow) {
+        return <span className="text-[#ff0000]">{row.original.name}</span>;
+      }
       const tone = row.original.nameTone ?? "normal";
       const toneClass =
         tone === "warning"

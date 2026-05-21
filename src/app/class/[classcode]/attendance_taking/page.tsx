@@ -1,5 +1,6 @@
 import { AttendanceCheckingList } from "@/components/table_class/check_attendance";
 import { Input } from "@/components/ui/input";
+import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
 
 export default function AttendanceTaking() {
@@ -37,7 +38,7 @@ export default function AttendanceTaking() {
         <p className="text-sm text-[#1f1f1f]">Active student: 02/05</p>
       </div>
       <section className="mx-auto w-full max-w-6xl border rounded-lg overflow-hidden">
-        <AttendanceCheckingList />
+        <AttendanceCheckingList students={students} />
       </section>
       <section className="mx-auto flex w-full max-w-6xl items-center justify-end gap-4 py-5">
         <p className="text-sm text-[#1f1f1f]">Start: 8:00 am</p>

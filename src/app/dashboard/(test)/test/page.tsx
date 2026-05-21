@@ -9,7 +9,7 @@ export default function MyQR() {
     <div className="flex justify-center items-center h-screen">
       <QRCodeCanvas
         value={qrUrl}
-        size={300}
+        size={300} 
         level="H"
         includeMargin={true}
         imageSettings={{

@@ -7,10 +7,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { data } from "@/lib/mockupData/student"
+import { Student } from "@/lib/type/student"
 import Image from "next/image"
 
 
-export function AttendanceCheckingList() {
+type AttendanceCheckingListProps = {
+  students?: Student[]
+}
+
+export function AttendanceCheckingList({ students = data }: AttendanceCheckingListProps) {
   return (
     <Table>
       <TableHeader className="bg-gray-100">
@@ -30,7 +35,7 @@ export function AttendanceCheckingList() {
       </TableHeader>
 
       <TableBody>
-        {data.map((student, index) => (
+        {students.map((student, index) => (
           <TableRow key={student.id}>
             <TableCell className="font-medium text-center">
               {String(index + 1).padStart(3, "0")}

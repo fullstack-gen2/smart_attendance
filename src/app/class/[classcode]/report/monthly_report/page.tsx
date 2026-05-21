@@ -3,35 +3,26 @@ import {
   ReportAttendanceRow,
 } from "@/components/classdetail/report-column";
 import { DataTable } from "@/components/classdetail/data-table";
+import { monthlyReportAttendance } from "@/lib/mockupData/attendance";
+import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
 
 async function getData(): Promise<ReportAttendanceRow[]> {
-  const weeklyStats = [
-    { p: 17, pm: 0, l: 0 },
-    { p: 15, pm: 2, l: 0 },
-    { p: 9, pm: 0, l: 8 },
-    { p: 17, pm: 0, l: 0 },
-    { p: 17, pm: 1, l: 0 },
-    { p: 6, pm: 10, l: 1 },
-    { p: 17, pm: 0, l: 0 },
-    { p: 16, pm: 1, l: 0 },
-    { p: 16, pm: 0, l: 1 },
-    { p: 17, pm: 0, l: 0 },
-    { p: 16, pm: 1, l: 0 },
-  ];
-
-  return Array.from({ length: 11 }).map((_, index) => ({
+  return students.map((student, index) => {
+    const p = monthlyReportAttendance[index]?.p ?? 0;
+    return {
     order: index + 1,
-    id: `728ed52f-${index + 1}`,
-    name: `Student ${index + 1}`,
-    gender: index % 2 === 0 ? "Male" : "Female",
-    profile:
-      "https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg",
-    p: weeklyStats[index].p,
-    pm: weeklyStats[index].pm,
-    l: weeklyStats[index].l,
+    id: student.id,
+    name: student.name,
+    gender: student.gender,
+    profile: student.profile,
+    p,
+    pm: monthlyReportAttendance[index]?.pm ?? 0,
+    l: monthlyReportAttendance[index]?.l ?? 0,
     status: "active",
-  }));
+    isAlertRow: p < 15,
+    };
+  });
 }
 
 export default async function StartPage() {

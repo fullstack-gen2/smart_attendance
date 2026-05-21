@@ -3,33 +3,20 @@ import {
   ReportAttendanceRow,
 } from "@/components/classdetail/report-column";
 import { DataTable } from "@/components/classdetail/data-table";
+import { dailyReportAttendance } from "@/lib/mockupData/attendance";
+import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
 
 async function getData(): Promise<ReportAttendanceRow[]> {
-  const dailyMarks = [
-    { p: "✓", pm: "-", l: "-" },
-    { p: "-", pm: "✓", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "✓", pm: "-", l: "-" },
-    { p: "-", pm: "-", l: "✓" },
-    { p: "✓", pm: "-", l: "-" },
-  ];
-
-  return Array.from({ length: 11 }).map((_, index) => ({
+  return students.map((student, index) => ({
     order: index + 1,
-    id: `728ed52f-${index + 1}`,
-    name: `Student ${index + 1}`,
-    gender: index % 2 === 0 ? "Male" : "Female",
-    profile:
-      "https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg",
-    p: dailyMarks[index].p,
-    pm: dailyMarks[index].pm,
-    l: dailyMarks[index].l,
+    id: student.id,
+    name: student.name,
+    gender: student.gender,
+    profile: student.profile,
+    p: dailyReportAttendance[index]?.p ?? "-",
+    pm: dailyReportAttendance[index]?.pm ?? "-",
+    l: dailyReportAttendance[index]?.l ?? "-",
     status: "active",
   }));
 }
