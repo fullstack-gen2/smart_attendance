@@ -1,18 +1,22 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { data } from "@/lib/mockupData/student"
-import Image from "next/image"
+} from "@/components/ui/table";
+import { data } from "@/lib/mockupData/student";
+import Image from "next/image";
+import { GiCheckMark } from "react-icons/gi";
+import { AiOutlineMinus } from "react-icons/ai";
 
-
-export function AttendanceCheckingList() {
+export function AttendanceCheckedList() {
   return (
     <Table>
+      <TableCaption>Student attendance list</TableCaption>
+
       <TableHeader className="bg-gray-100">
         <TableRow>
           <TableHead className="text-center">No.</TableHead>
@@ -37,7 +41,6 @@ export function AttendanceCheckingList() {
             </TableCell>
 
             <TableCell>{student.id}</TableCell>
-
             <TableCell>
               <Image
                 src={student.profile}
@@ -54,28 +57,22 @@ export function AttendanceCheckingList() {
 
             <TableCell className="w-37.5">
               <div className="flex justify-between items-center ">
-                  <input
-                    type="radio"
-                    name={student.id}
-                    checked={student.status === "present"}
-                    readOnly
-                  />
-                  <input
-                    type="radio"
-                    name={student.id}
-                    readOnly
-                  />
-
-                  <input
-                    type="radio"
-                    name={student.id}
-                    readOnly
-                  />
+                <span>
+                  <GiCheckMark />
+                </span>
+                <span>
+                  <AiOutlineMinus/>
+                </span>
+                <span>
+                  <AiOutlineMinus/>
+                </span>
               </div>
             </TableCell>
 
             <TableCell className="text-center">
-              <span className={` ${student.status === "pending"?"text-gray-400":"text-black"}`}>
+              <span
+                className={` ${student.status === "pending" ? "text-gray-400" : "text-black"}`}
+              >
                 {student.status}
               </span>
             </TableCell>
@@ -83,5 +80,5 @@ export function AttendanceCheckingList() {
         ))}
       </TableBody>
     </Table>
-  )
+  );
 }
