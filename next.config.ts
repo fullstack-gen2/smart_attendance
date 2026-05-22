@@ -5,11 +5,20 @@ const nextConfig = {
     root: __dirname,
   },
   images: {
-    domains: ["i.pinimg.com", "i1-c.pinimg.com"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "your-domain.com",
+        hostname: "i.pinimg.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i1-c.pinimg.com",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3000",
+        pathname: "/attendance/**",
       },
     ],
   },

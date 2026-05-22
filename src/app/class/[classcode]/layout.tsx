@@ -19,7 +19,7 @@ export default function Page({
   modal,
 }: {
   children: React.ReactNode;
-  modal: React.ReactNode;
+  modal?: React.ReactNode;
 }) {
   return (
     <SidebarProvider
@@ -55,7 +55,7 @@ export default function Page({
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {modal}
+          {modal ?? null}
           {children}
         </div>
       </SidebarInset>

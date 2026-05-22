@@ -62,6 +62,7 @@ const data = {
         },
         {
           title: "Class report",
+          url: "#",
         },
       ],
     },
@@ -73,19 +74,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const classcode = Array.isArray(params.classcode)
     ? params.classcode[0]
     : params.classcode;
+  const classBasePath = classcode ? `/class/${classcode}` : "/class";
 
   const navMain = data.navMain.map((section) => ({
     ...section,
-    items: section.items?.map((item) =>
-      item.title === "Students Attendance List"
-        ? { ...item, url: classcode ? `/class/${classcode}` : "/class" }
-        : item.title === "Class report"
-          ? {
-              ...item,
-              url: classcode ? `/class/${classcode}/report` : "/class/report",
-            }
-          : item,
-    ),
+    items: section.items?.map((item) => {
+      if (item.title === "Students Attendance List") {
+        return { ...item, url: classBasePath };
+      }
+
+      if (item.title === "Take Student Attendance") {
+        return { ...item, url: `${classBasePath}/attendance_taking` };
+      }
+
+      if (item.title === "Class report") {
+        return { ...item, url: `${classBasePath}/report` };
+      }
+
+      return item;
+    }),
   }));
 
   return (
