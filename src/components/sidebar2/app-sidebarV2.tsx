@@ -2,17 +2,12 @@
 
 import * as React from "react";
 import { useParams } from "next/navigation";
-import {
-  AudioWaveform,
-  Command,
-  GalleryVerticalEnd,
-  SquareTerminal,
-} from "lucide-react";
+import Image from "next/image";
+import { BookOpenIcon } from "lucide-react";
 
 import { NavMain } from "@/components/sidebar2/nav-main";
 
 import { NavUser } from "@/components/sidebar2/nav-user";
-import { TeamSwitcher } from "@/components/sidebar2/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -20,6 +15,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import logo from "../../../public/project-logo.png";
 
 // This is sample data.
 const data = {
@@ -28,28 +24,12 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
+
   navMain: [
     {
       title: "Class",
       url: "#",
-      icon: SquareTerminal,
+      icon: BookOpenIcon,
       isActive: true,
       items: [
         {
@@ -98,7 +78,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <div className="px-2 py-1">
+          <Image src={logo} alt="iCheck Logo" width={120} priority />
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain} />

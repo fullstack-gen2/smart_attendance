@@ -8,17 +8,26 @@ import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
 
 async function getData(): Promise<ReportAttendanceRow[]> {
-  return students.map((student, index) => ({
-    order: index + 1,
-    id: student.id,
-    name: student.name,
-    gender: student.gender,
-    profile: student.profile,
-    p: dailyReportAttendance[index]?.p ?? "-",
-    pm: dailyReportAttendance[index]?.pm ?? "-",
-    l: dailyReportAttendance[index]?.l ?? "-",
-    status: "active",
-  }));
+  const isMarked = (value: string | undefined) => value && value !== "-";
+
+  return students.map((student, index) => {
+    const pm = dailyReportAttendance[index]?.pm ?? "-";
+    const l = dailyReportAttendance[index]?.l ?? "-";
+
+    return {
+      order: index + 1,
+      id: student.id,
+      name: student.name,
+      gender: student.gender,
+      profile: student.profile,
+      p: dailyReportAttendance[index]?.p ?? "-",
+      pm,
+      l,
+      status: "active",
+      permissionReason: isMarked(pm) ? "Feeling unwell" : undefined,
+      lateReason: isMarked(l) ? "Traffic Jam" : undefined,
+    };
+  });
 }
 
 export default async function StartPage() {

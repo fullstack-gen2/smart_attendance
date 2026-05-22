@@ -15,6 +15,7 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
+  TableMeta,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
@@ -40,6 +41,13 @@ interface DataTableProps<TData, TValue> {
   showNote?: boolean;
 }
 
+declare module "@tanstack/react-table" {
+  interface TableMeta<TData> {
+    expandedRowId?: string | null;
+    toggleExpandedRow?: (rowId: string) => void;
+  }
+}
+
 export function DataTable<TData, TValue>({
   columns,
   data,
@@ -57,6 +65,7 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
+  const [expandedRowId, setExpandedRowId] = React.useState<string | null>(null);
 
   const table = useReactTable({
     data,
@@ -71,6 +80,12 @@ export function DataTable<TData, TValue>({
       sorting,
       columnFilters,
     },
+    meta: {
+      expandedRowId,
+      toggleExpandedRow: (rowId: string) => {
+        setExpandedRowId((current) => (current === rowId ? null : rowId));
+      },
+    } satisfies TableMeta<TData>,
   });
 
   return (
@@ -178,21 +193,61 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              table.getRowModel().rows.map((row) => {
+                const rowData = row.original as TData & {
+                  id?: string;
+                  permissionReason?: string;
+                  lateReason?: string;
+                };
+                const hasExpandedDetails =
+                  !!rowData.permissionReason || !!rowData.lateReason;
+                const isExpanded =
+                  !!rowData.id &&
+                  hasExpandedDetails &&
+                  expandedRowId === String(rowData.id);
+
+                return (
+                  <React.Fragment key={row.id}>
+                    <TableRow data-state={row.getIsSelected() && "selected"}>
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    {isExpanded && (
+                      <TableRow>
+                        <TableCell
+                          colSpan={columns.length}
+                          className="bg-white px-8 py-4"
+                        >
+                          <div className="space-y-2 text-right text-sm">
+                            {rowData.permissionReason && (
+                              <p>
+                                <span className="text-red-500">Permission:</span>{" "}
+                                <span className="text-[#1f1f1f]">
+                                  {rowData.permissionReason}
+                                </span>
+                              </p>
+                            )}
+                            {rowData.lateReason && (
+                              <p>
+                                <span className="text-amber-500">Late:</span>{" "}
+                                <span className="text-[#1f1f1f]">
+                                  {rowData.lateReason}
+                                </span>
+                              </p>
+                            )}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
+                );
+              })
             ) : (
               <TableRow>
                 <TableCell

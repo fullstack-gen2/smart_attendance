@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown } from "lucide-react";
+import { ArrowUpDown, ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -15,6 +15,8 @@ export type ReportAttendanceRow = {
   pm: number | string;
   l: number | string;
   status: string;
+  permissionReason?: string;
+  lateReason?: string;
   nameTone?: "normal" | "warning" | "danger";
   isAlertRow?: boolean;
 };
@@ -110,10 +112,32 @@ export const reportColumns: ColumnDef<ReportAttendanceRow>[] = [
   {
     accessorKey: "status",
     header: () => <div className="text-center">Status</div>,
-    cell: () => (
-      <div className="flex justify-center">
-        <ChevronDown className="h-4 w-4 text-black" />
-      </div>
-    ),
+    cell: ({ row, table }) => {
+      const rowId = row.original.id;
+      const hasDetails =
+        !!row.original.permissionReason || !!row.original.lateReason;
+      const isExpanded = table.options.meta?.expandedRowId === rowId;
+
+      if (!hasDetails) {
+        return <div className="text-center text-sm text-[#1f1f1f]">active</div>;
+      }
+
+      return (
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={() => table.options.meta?.toggleExpandedRow?.(rowId)}
+            aria-label={isExpanded ? "Collapse details" : "Expand details"}
+            className="inline-flex h-6 w-6 items-center justify-center rounded-sm text-black transition hover:bg-gray-100"
+          >
+            {isExpanded ? (
+              <ChevronUp className="h-4 w-4" />
+            ) : (
+              <ChevronDown className="h-4 w-4" />
+            )}
+          </button>
+        </div>
+      );
+    },
   },
 ];
