@@ -1,14 +1,11 @@
 "use client";
 
 import { format } from "date-fns";
-
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-
 import {
   Field,
   FieldDescription,
@@ -19,7 +16,6 @@ import {
   FieldSeparator,
   FieldSet,
 } from "@/components/ui/field";
-
 import {
   Combobox,
   ComboboxContent,
@@ -28,32 +24,10 @@ import {
   ComboboxItem,
   ComboboxList,
 } from "@/components/ui/combobox";
-
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-
 import { CalendarIcon } from "lucide-react";
+import { mockupData } from "@/lib/mockupData/data";
 
-/* =========================
-   MOCKUP DATA
-========================= */
-
-const mockupData = {
-  programTypes: ["Scholarship", "Associate", "Bachelor"],
-
-  classNames: ["A1", "A2", "B1", "B2"],
-
-  generations: ["Generation 1", "Generation 2", "Generation 3"],
-
-  years: ["Year 1", "Year 2", "Year 3", "Year 4"],
-
-  semesters: ["Semester 1", "Semester 2"],
-
-  shifts: ["Morning", "Afternoon", "Evening"],
-};
-
-/* =========================
-   ZOD SCHEMA
-========================= */
 
 const createClassSchema = z.object({
   programType: z.string().min(1, "required to select"),
@@ -114,7 +88,7 @@ export default function CreatingClassForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} onReset={onReset}>
         <FieldGroup>
           <FieldSet>
-            <FieldLegend>Start Create Class</FieldLegend>
+            <FieldLegend className="font-bold">Start Create Class</FieldLegend>
             <FieldDescription>
               All transactions are secure and encrypted
             </FieldDescription>

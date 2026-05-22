@@ -25,7 +25,7 @@ export function Modal({
       open
       onOpenChange={() => router.back()}
     >
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-xl">
         <DialogHeader>
           <VisuallyHidden>
             <DialogTitle>Create Class Modal</DialogTitle>
