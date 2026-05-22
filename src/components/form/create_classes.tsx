@@ -431,7 +431,7 @@ export default function CreatingClassForm() {
               Cancel
             </Button>
 
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="bg-blue-600"> Submit </Button>
           </Field>
         </FieldGroup>
       </form>

@@ -25,7 +25,7 @@ export function Modal({
       open
       onOpenChange={() => router.back()}
     >
-      <DialogContent className="sm:max-w-xl">
+      <DialogContent className="sm:max-w-xl px-10 py-8">
         <DialogHeader>
           <VisuallyHidden>
             <DialogTitle>Create Class Modal</DialogTitle>
@@ -37,7 +37,6 @@ export function Modal({
             </DialogDescription>
           </VisuallyHidden>
         </DialogHeader>
-
         {children}
       </DialogContent>
     </Dialog>
