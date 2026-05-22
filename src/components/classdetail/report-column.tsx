@@ -28,6 +28,7 @@ export const reportColumns: ColumnDef<ReportAttendanceRow>[] = [
       return (
         <Button
           variant="ghost"
+          className="h-8 w-14 justify-start px-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           No.
@@ -36,7 +37,9 @@ export const reportColumns: ColumnDef<ReportAttendanceRow>[] = [
       );
     },
     cell: ({ row }) => (
-      <span className={row.original.isAlertRow ? "text-[#ff0000]" : "text-black"}>
+      <span
+        className={`inline-block w-10 ${row.original.isAlertRow ? "text-[#ff0000]" : "text-black"}`}
+      >
         {row.original.order}
       </span>
     ),

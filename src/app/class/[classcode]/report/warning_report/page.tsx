@@ -18,6 +18,7 @@ import {
 import { ArrowUpDown, ListFilter, UserRoundSearch } from "lucide-react";
 import Image from "next/image";
 import { monthlyReportAttendance } from "@/lib/mockupData/attendance";
+import { classInfo } from "@/lib/mockupData/data";
 import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -32,12 +33,17 @@ export default function StartPage() {
   const classcode = Array.isArray(params.classcode)
     ? params.classcode[0]
     : params.classcode;
+  const classCode = Number(classcode);
+  const currentClass =
+    classInfo.find((item) => item.code === classCode) ??
+    classInfo.find((item) => item.code % 100 === classCode);
   const classBaseHref = classcode ? `/class/${classcode}` : "/class";
 
   const reportLinks = [
     { href: `${classBaseHref}/report`, label: "Day Report" },
     { href: `${classBaseHref}/report/weekly_report`, label: "Weekly Report" },
     { href: `${classBaseHref}/report/monthly_report`, label: "Monthly Report" },
+    { href: `${classBaseHref}/report/warning_report`, label: "Warning Report" },
   ];
 
   const warningStudents = students
@@ -78,7 +84,7 @@ export default function StartPage() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <h1 className="mt-4 mb-4 text-3xl font-semibold tracking-tight text-rose-950 sm:text-4xl">
-              Bachelor
+              {currentClass?.name ?? "Class"}
             </h1>
             <Link
               href="/dashboard"
@@ -91,7 +97,9 @@ export default function StartPage() {
             </Link>
           </div>
         </div>
-        <p className="mt-3 text-l text-[#1f1f1f]">Class: Bachelor</p>
+        <p className="mt-3 text-l text-[#1f1f1f]">
+          ProgramType: {currentClass?.programType ?? "-"}
+        </p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
           Student Report List-April-Warning Student
         </h2>

@@ -14,6 +14,7 @@ export const columns: ColumnDef<AttendanceList>[] = [
       return (
         <Button
           variant="ghost"
+          className="h-8 w-14 justify-start px-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           No.
@@ -21,6 +22,7 @@ export const columns: ColumnDef<AttendanceList>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => <div className="w-10">{row.original.order}</div>,
   },
   {
     accessorKey: "id",

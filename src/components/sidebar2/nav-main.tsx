@@ -2,6 +2,17 @@
 
 import { ChevronRight, type LucideIcon } from "lucide-react";
 import Link from "next/link";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 import {
   Collapsible,
@@ -33,6 +44,9 @@ export function NavMain({
     }[];
   }[];
 }) {
+  const isTakeStudentAttendance = (title: string) =>
+    title === "Take Student Attendance";
+
   return (
     <SidebarGroup className="pt-10">
       <SidebarGroupLabel className="text-sm ">
@@ -58,14 +72,43 @@ export function NavMain({
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton
-                        asChild
-                        className="text-gray-500 hover:text-black"
-                      >
-                        <Link href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </Link>
-                      </SidebarMenuSubButton>
+                      {isTakeStudentAttendance(subItem.title) ? (
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <SidebarMenuSubButton className="text-gray-500 hover:text-black">
+                              <span>{subItem.title}</span>
+                            </SidebarMenuSubButton>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle className="font-bold">
+                                Start Session Now
+                              </AlertDialogTitle>
+                              <AlertDialogDescription className="pl-3">
+                                Start at: 8:00 PM
+                              </AlertDialogDescription>
+                              <AlertDialogDescription className="pl-3">
+                                End at: 12:00 PM
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction asChild>
+                                <Link href={subItem.url}>Start</Link>
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      ) : (
+                        <SidebarMenuSubButton
+                          asChild
+                          className="text-gray-500 hover:text-black"
+                        >
+                          <Link href={subItem.url}>
+                            <span>{subItem.title}</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      )}
                     </SidebarMenuSubItem>
                   ))}
                 </SidebarMenuSub>

@@ -78,8 +78,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <div className="px-2 py-1">
-          <Image src={logo} alt="iCheck Logo" width={120} priority />
+        <div className="p-3">
+          <Image src={logo} alt="iCheck Logo" width={100} height={100} priority />
         </div>
       </SidebarHeader>
       <SidebarContent>

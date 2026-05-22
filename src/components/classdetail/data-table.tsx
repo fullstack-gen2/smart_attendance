@@ -39,6 +39,8 @@ interface DataTableProps<TData, TValue> {
   showAddStudentButton?: boolean;
   studentSummaryText?: string;
   showNote?: boolean;
+  showToolbarIcons?: boolean;
+  noteContent?: React.ReactNode;
 }
 
 declare module "@tanstack/react-table" {
@@ -55,6 +57,8 @@ export function DataTable<TData, TValue>({
   showAddStudentButton = true,
   studentSummaryText,
   showNote = true,
+  showToolbarIcons = true,
+  noteContent,
 }: DataTableProps<TData, TValue>) {
   const params = useParams<{ classcode?: string | string[] }>();
   const classcode = Array.isArray(params.classcode)
@@ -99,62 +103,98 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <div className="flex items-center gap-4">
-          <Link
-            href={classcode ? `/class/${classcode}/class_list` : "/class"}
-            aria-label="Student list options"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
-          >
-            <UserRoundSearch className="h-5 w-5" />
-          </Link>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                aria-label="Filter"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
-              >
-                <ListFilter className="h-5 w-5" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-40 p-1">
-              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                <Link href={classcode ? `/class/${classcode}/report` : "/class"}>
-                  Day Report
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                <Link href={classcode ? `/class/${classcode}/report/weekly_report` : "/class"}>
-                  Weekly Report
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                <Link href={classcode ? `/class/${classcode}/report/monthly_report` : "/class"}>
-                  Monthly Report
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                <Link href={classcode ? `/class/${classcode}/report/warning_report` : "/class"}>
-                  Student Warning
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        {showToolbarIcons && (
+          <div className="flex items-center gap-4">
+            <Link
+              href={classcode ? `/class/${classcode}/class_list` : "/class"}
+              aria-label="Student list options"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
+            >
+              <UserRoundSearch className="h-5 w-5" />
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Filter"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
+                >
+                  <ListFilter className="h-5 w-5" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-40 p-1">
+                <DropdownMenuItem
+                  asChild
+                  className="justify-center text-sm text-gray-500 hover:text-black focus:text-black"
+                >
+                  <Link href={classcode ? `/class/${classcode}/report` : "/class"}>
+                    Day Report
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  asChild
+                  className="justify-center text-sm text-gray-500 hover:text-black focus:text-black"
+                >
+                  <Link
+                    href={
+                      classcode
+                        ? `/class/${classcode}/report/weekly_report`
+                        : "/class"
+                    }
+                  >
+                    Weekly Report
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  asChild
+                  className="justify-center text-sm text-gray-500 hover:text-black focus:text-black"
+                >
+                  <Link
+                    href={
+                      classcode
+                        ? `/class/${classcode}/report/monthly_report`
+                        : "/class"
+                    }
+                  >
+                    Monthly Report
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  asChild
+                  className="justify-center text-sm text-gray-500 hover:text-black focus:text-black"
+                >
+                  <Link
+                    href={
+                      classcode
+                        ? `/class/${classcode}/report/warning_report`
+                        : "/class"
+                    }
+                  >
+                    Warning Report
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
       </div>
       {showStudentActions && (
         <div className="mb-4 flex items-end justify-between gap-4">
           {showNote ? (
             <div className="text-sm">
-              <p className="font-medium text-black">
-                Note:
-                <span className="ml-2 font-normal text-red-500">
-                  Student with red name is already reach warning
-                </span>
-              </p>
-              <p className="pl-12 text-amber-500">
-                Student with yellow name is almost reach warning
-              </p>
+              {noteContent ?? (
+                <>
+                  <p className="font-medium text-black">
+                    Note:
+                    <span className="ml-2 font-normal text-red-500">
+                      Student with red name is already reach warning
+                    </span>
+                  </p>
+                  <p className="pl-12 text-amber-500">
+                    Student with yellow name is almost reach warning
+                  </p>
+                </>
+              )}
             </div>
           ) : (
             <div></div>
@@ -227,7 +267,9 @@ export function DataTable<TData, TValue>({
                           <div className="space-y-2 text-right text-sm">
                             {rowData.permissionReason && (
                               <p>
-                                <span className="text-red-500">Permission:</span>{" "}
+                                <span className="text-red-500">
+                                  Permission:
+                                </span>{" "}
                                 <span className="text-[#1f1f1f]">
                                   {rowData.permissionReason}
                                 </span>

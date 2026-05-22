@@ -44,7 +44,7 @@ export default function AttendanceTaking() {
           ProgramType: {currentClass?.programType ?? "-"}
         </p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
-          ការបញ្ជីវត្តមានសិស្ស-Student Attendance List-April
+          Student Attendance List Amandment
         </h2>
       </section>
       <div className="mx-auto flex w-full max-w-6xl items-end justify-between gap-4 pb-4">
