@@ -1,9 +1,13 @@
+"use client";
 import { AttendanceCheckingList } from "@/components/table_class/check_attendance";
 import { Input } from "@/components/ui/input";
 import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function AttendanceTaking() {
+  const { classcode } = useParams<{ classcode: string }>();
+
   return (
     <main className="min-h-screen bg-white px-2 py-6 sm:px-3 lg:px-4">
       <section className="mx-auto mb-4 w-full max-w-6xl bg-[#ffffff] px-2">
@@ -44,7 +48,7 @@ export default function AttendanceTaking() {
         <p className="text-sm text-[#1f1f1f]">Start: 8:00 am</p>
         <p className="text-sm text-[#1f1f1f]">End: 8:05 am</p>
         <Link
-          href={`/class/001/attendance_taking/attendance_list`}
+          href={`/class/${classcode}/attendance_taking/attendance_list`}
           className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
         >
           Done

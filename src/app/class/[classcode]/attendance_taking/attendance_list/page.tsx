@@ -31,10 +31,17 @@ async function getData(): Promise<ReportAttendanceRow[]> {
     pm: dailyMarks[index].pm,
     l: dailyMarks[index].l,
     status: "active",
+    permissionReason: "Feeling unwell",
+    lateReason: "Traffic Jam",
   }));
 }
 
-export default async function StartPage() {
+export default async function StartPage({
+  params,
+}: {
+  params: { classcode: string };
+}) {
+  const { classcode } = params;
   const data = await getData();
 
   return (
@@ -76,7 +83,7 @@ export default async function StartPage() {
       </div>
       <section className="mx-auto flex w-full max-w-6xl items-center justify-end gap-4 py-5">
         <Link
-          href={`/class/001/attendance_taking/attendance_list`}
+          href={`/class/${classcode}/attendance_taking/attendance_list`}
           className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
         >
           Amendment

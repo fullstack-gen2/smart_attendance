@@ -1,7 +1,3 @@
-import React from 'react'
-
-export default function page() {
-  return (
-    <div>Attendance</div>
-  )
-}   
+export default function AttendanceDetailPage() {
+  return null;
+}
