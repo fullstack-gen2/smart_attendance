@@ -12,14 +12,16 @@ import { data } from "@/lib/mockupData/student";
 import { AttendanceStatus, Student } from "@/lib/type/student";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 type AttendanceCheckingListProps = {
   students?: Student[];
+  onActiveStudentCountChange?: (count: number) => void;
 };
 
 export function AttendanceCheckingList({
   students = data,
+  onActiveStudentCountChange,
 }: AttendanceCheckingListProps) {
   const [attendanceByStudentId, setAttendanceByStudentId] = useState<
     Record<string, AttendanceStatus | null>
@@ -33,6 +35,17 @@ export function AttendanceCheckingList({
     ),
   );
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!onActiveStudentCountChange) {
+      return;
+    }
+
+    const activeCount = Object.values(attendanceByStudentId).filter(
+      (status) => status === AttendanceStatus.PRESENT,
+    ).length;
+    onActiveStudentCountChange(activeCount);
+  }, [attendanceByStudentId, onActiveStudentCountChange]);
 
   const updateAttendance = (studentId: string, status: AttendanceStatus) => {
     setAttendanceByStudentId((prev) => ({

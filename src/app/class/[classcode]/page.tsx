@@ -70,6 +70,7 @@ export default async function StartPage({
             title="Start Session Now"
             firstTime={firstTime}
             secondTime={secondTime}
+            classcode={classcode}
           />
         </div>
       </div>

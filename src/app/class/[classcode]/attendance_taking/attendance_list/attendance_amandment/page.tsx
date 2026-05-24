@@ -5,13 +5,18 @@ import { classInfo } from "@/lib/mockupData/data";
 import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 
 export default function AttendanceTaking() {
   const { classcode } = useParams<{ classcode: string }>();
+  const [activeStudentCount, setActiveStudentCount] = useState(0);
   const classCode = Number(classcode);
   const currentClass =
     classInfo.find((item) => item.code === classCode) ??
     classInfo.find((item) => item.code % 100 === classCode);
+  const totalStudentCount = students.length;
+  const activeDisplay = String(activeStudentCount).padStart(2, "0");
+  const totalDisplay = String(totalStudentCount).padStart(2, "0");
 
   return (
     <main className="min-h-screen bg-white px-2 py-6 sm:px-3 lg:px-4">
@@ -40,14 +45,17 @@ export default function AttendanceTaking() {
       </section>
       <div className="mx-auto flex w-full max-w-6xl items-end justify-between gap-4 pb-4">
         <Input placeholder="Search Student" className="max-w-sm" />
-        <p className="text-sm text-[#1f1f1f]">Active student: 02/05</p>
+        <p className="text-sm text-[#1f1f1f]">
+          Active student: {activeDisplay}/{totalDisplay}
+        </p>
       </div>
       <section className="mx-auto w-full max-w-6xl overflow-hidden rounded-lg border">
-        <AttendanceCheckingList students={students} />
+        <AttendanceCheckingList
+          students={students}
+          onActiveStudentCountChange={setActiveStudentCount}
+        />
       </section>
       <section className="mx-auto flex w-full max-w-6xl items-center justify-end gap-4 py-5">
-        <p className="text-sm text-[#1f1f1f]">Start: 8:00 am</p>
-        <p className="text-sm text-[#1f1f1f]">End: 8:05 am</p>
         <Link
           href={`/class/${classcode}/attendance_taking/attendance_list`}
           className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
