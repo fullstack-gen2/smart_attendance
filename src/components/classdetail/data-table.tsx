@@ -1,7 +1,8 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { ListFilter, UserRoundSearch } from "lucide-react";
+import { ListFilter } from "lucide-react";
+import { LuUserSearch } from "react-icons/lu";
 import * as React from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -41,6 +42,7 @@ interface DataTableProps<TData, TValue> {
   showNote?: boolean;
   showToolbarIcons?: boolean;
   noteContent?: React.ReactNode;
+  showAttendanceTotals?: boolean;
 }
 
 declare module "@tanstack/react-table" {
@@ -59,6 +61,7 @@ export function DataTable<TData, TValue>({
   showNote = true,
   showToolbarIcons = true,
   noteContent,
+  showAttendanceTotals = false,
 }: DataTableProps<TData, TValue>) {
   const params = useParams<{ classcode?: string | string[] }>();
   const classcode = Array.isArray(params.classcode)
@@ -92,6 +95,34 @@ export function DataTable<TData, TValue>({
     } satisfies TableMeta<TData>,
   });
 
+  const isAttendanceMark = (value: unknown) => {
+    if (typeof value === "number") return value > 0;
+    if (typeof value !== "string") return false;
+    const mark = value.trim().toLowerCase();
+    return mark === "✓" || mark === "âœ“" || mark === "v" || mark === "1";
+  };
+
+  const attendanceTotals = React.useMemo(() => {
+    if (!showAttendanceTotals) return null;
+
+    let p = 0;
+    let pm = 0;
+    let l = 0;
+
+    for (const row of table.getRowModel().rows) {
+      const rowData = row.original as {
+        p?: unknown;
+        pm?: unknown;
+        l?: unknown;
+      };
+      if (isAttendanceMark(rowData.p)) p += 1;
+      if (isAttendanceMark(rowData.pm)) pm += 1;
+      if (isAttendanceMark(rowData.l)) l += 1;
+    }
+
+    return { p, pm, l };
+  }, [showAttendanceTotals, table]);
+
   return (
     <div>
       <div className="flex items-center justify-between gap-3 pb-4">
@@ -107,10 +138,10 @@ export function DataTable<TData, TValue>({
           <div className="flex items-center gap-4">
             <Link
               href={classcode ? `/class/${classcode}/class_list` : "/class"}
-              aria-label="Student list options"
+              aria-label="Class List"
               className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
             >
-              <UserRoundSearch className="h-5 w-5" />
+              <LuUserSearch className="h-5 w-5" />
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -298,6 +329,29 @@ export function DataTable<TData, TValue>({
                 >
                   No results.
                 </TableCell>
+              </TableRow>
+            )}
+            {attendanceTotals && (
+              <TableRow>
+                {table.getAllLeafColumns().map((column) => {
+                  const columnId = column.id;
+                  const value =
+                    columnId === "p"
+                      ? attendanceTotals.p
+                      : columnId === "pm"
+                        ? attendanceTotals.pm
+                        : columnId === "l"
+                          ? attendanceTotals.l
+                          : "";
+
+                  return (
+                    <TableCell key={`total-${columnId}`}>
+                      {columnId === "p" || columnId === "pm" || columnId === "l" ? (
+                        <div className="w-6 text-center">{value}</div>
+                      ) : null}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             )}
           </TableBody>

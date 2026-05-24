@@ -3,32 +3,29 @@ import {
   ReportAttendanceRow,
 } from "@/components/classdetail/report-column";
 import { DataTable } from "@/components/classdetail/data-table";
-import { dailyReportAttendance } from "@/lib/mockupData/attendance";
 import { classInfo } from "@/lib/mockupData/data";
-import { data as students } from "@/lib/mockupData/student";
+import { data as studentData } from "@/lib/mockupData/student";
+import { AttendanceStatus } from "@/lib/type/student";
 import { notFound } from "next/navigation";
 
 async function getData(): Promise<ReportAttendanceRow[]> {
-  const isMarked = (value: string | undefined) => value && value !== "-";
-
-  return students.map((student, index) => {
-    const pm = dailyReportAttendance[index]?.pm ?? "-";
-    const l = dailyReportAttendance[index]?.l ?? "-";
-
-    return {
-      order: index + 1,
-      id: student.id,
-      name: student.name,
-      gender: student.gender,
-      profile: student.profile,
-      p: dailyReportAttendance[index]?.p ?? "-",
-      pm,
-      l,
-      status: "active",
-      permissionReason: isMarked(pm) ? "Feeling unwell" : undefined,
-      lateReason: isMarked(l) ? "Traffic Jam" : undefined,
-    };
-  });
+  return studentData.map((student, index) => ({
+    order: index + 1,
+    id: student.id,
+    name: student.name,
+    gender: student.gender,
+    profile: student.profile,
+    p: student.status === AttendanceStatus.PRESENT ? "✓" : "-",
+    pm: student.status === AttendanceStatus.PENDING ? "✓" : "-",
+    l: student.status === AttendanceStatus.LATE ? "✓" : "-",
+    status: "active",
+    permissionReason:
+      student.status === AttendanceStatus.PENDING
+        ? "Pending attendance check"
+        : undefined,
+    lateReason:
+      student.status === AttendanceStatus.LATE ? "Arrived late" : undefined,
+  }));
 }
 
 export default async function StartPage({
@@ -38,6 +35,11 @@ export default async function StartPage({
 }) {
   const { classcode } = await params;
   const classCode = Number(classcode);
+
+  if (!classcode || Number.isNaN(classCode)) {
+    notFound();
+  }
+
   const currentClass =
     classInfo.find((item) => item.code === classCode) ??
     classInfo.find((item) => item.code % 100 === classCode);
@@ -58,7 +60,7 @@ export default async function StartPage({
             </h1>
           </div>
           <div className="pt-6 text-right text-l leading-tight text-[#1f1f1f]">
-            <p>Date: 24/ April/ 2026</p>
+            <p>Time: {currentClass.time}</p>
             <p>
               Student(T/F): {currentClass.total_student}/
               {currentClass.female_student}
@@ -69,7 +71,7 @@ export default async function StartPage({
           ProgramType: {currentClass.programType}
         </p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
-          Student Daily Report
+          History Student Attendance List
         </h2>
       </section>
       <div className="mx-auto w-full max-w-6xl px-2 text-black">
@@ -77,28 +79,24 @@ export default async function StartPage({
           columns={reportColumns}
           data={data}
           showStudentActions
+          showToolbarIcons={false}
           showAddStudentButton={false}
           studentSummaryText="Active student : 09/11"
           showAttendanceTotals
           noteContent={
             <>
-              <p>
-                Note:{" "}
-                <span className="text-black">
+              <p className="font-medium text-black">
+                Note:
+                <span className="ml-2 font-normal text-black">
                   Student with black name is present
                 </span>
               </p>
-              <p className="pl-9 text-gray-500">
+              <p className="pl-10 text-gray-500">
                 Student with gray name is not present yet
               </p>
             </>
           }
         />
-        <div className="mt-2 text-sm leading-relaxed">
-          <p>P stand for Present</p>
-          <p>PM stand for Permission</p>
-          <p>L stand for Late</p>
-        </div>
       </div>
     </main>
   );

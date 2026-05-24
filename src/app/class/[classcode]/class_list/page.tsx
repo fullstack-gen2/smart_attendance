@@ -3,7 +3,6 @@ import { DataTable } from "@/components/classdetail/data-table";
 import { classInfo } from "@/lib/mockupData/data";
 import { data as students } from "@/lib/mockupData/student";
 import { AttendanceList } from "@/lib/mockupdatafordatatable";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 async function getData(): Promise<AttendanceList[]> {
@@ -43,15 +42,6 @@ export default async function StartPage({
             <h1 className="mt-4 mb-4 text-3xl font-semibold tracking-tight text-rose-950 sm:text-4xl">
               {currentClass.name}
             </h1>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
-            >
-              <span aria-hidden="true" className="mr-2 text-base">
-                ←
-              </span>
-              Class List
-            </Link>
           </div>
           <div className="pt-6 text-right text-l leading-tight text-[#1f1f1f]">
             <p>Time: {currentClass.time}</p>
@@ -66,7 +56,7 @@ export default async function StartPage({
           ProgramType: {currentClass.programType}
         </p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
-          តារាងបញ្ជីឈ្មោះសិស្ស-Student List
+          Student List
         </h2>
       </section>
       <div className="mx-auto w-full max-w-6xl px-2 text-black">

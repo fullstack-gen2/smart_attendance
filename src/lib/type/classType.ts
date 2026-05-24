@@ -3,7 +3,7 @@ export type classData = {
     name: string;
     room: string;
     shift: string;
-    status: boolean;
+    status: "Active" | "Complete" | "History";
     programType: "Scholarship" | "Associate" | "Bachelor";
     time: string;
     total_student: number;

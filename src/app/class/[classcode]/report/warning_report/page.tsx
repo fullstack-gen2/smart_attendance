@@ -15,7 +15,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, ListFilter, UserRoundSearch } from "lucide-react";
+import { ArrowUpDown, ListFilter } from "lucide-react";
+import { LuUserSearch } from "react-icons/lu";
 import Image from "next/image";
 import { monthlyReportAttendance } from "@/lib/mockupData/attendance";
 import { classInfo } from "@/lib/mockupData/data";
@@ -45,7 +46,6 @@ export default function StartPage() {
     { href: `${classBaseHref}/report/monthly_report`, label: "Monthly Report" },
     { href: `${classBaseHref}/report/warning_report`, label: "Warning Report" },
   ];
-
   const warningStudents = students
     .map((student, index) => ({
       order: index + 1,
@@ -86,15 +86,6 @@ export default function StartPage() {
             <h1 className="mt-4 mb-4 text-3xl font-semibold tracking-tight text-rose-950 sm:text-4xl">
               {currentClass?.name ?? "Class"}
             </h1>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
-            >
-              <span aria-hidden="true" className="mr-2 text-base">
-                ←
-              </span>
-              Class List
-            </Link>
           </div>
         </div>
         <p className="mt-3 text-l text-[#1f1f1f]">
@@ -114,11 +105,11 @@ export default function StartPage() {
           />
           <div className="flex items-center gap-4">
             <Link
-              href={`${classBaseHref}/class_list`}
-              aria-label="Student list options"
+              href={classcode ? `/class/${classcode}/class_list` : "/class"}
+              aria-label="Class List"
               className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
             >
-              <UserRoundSearch className="h-5 w-5" />
+              <LuUserSearch className="h-5 w-5" />
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -206,7 +197,8 @@ export default function StartPage() {
           </Table>
         </div>
         <p className="mt-3 text-sm text-red-500">
-          Note: {displayedWarningStudents.length} student(s) got a warning in April
+          Note: {displayedWarningStudents.length} student(s) got a warning in
+          April
         </p>
         <div className="mt-2 text-sm leading-relaxed">
           <p>P stand for Present</p>

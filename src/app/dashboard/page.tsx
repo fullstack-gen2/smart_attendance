@@ -3,7 +3,9 @@ import { DropdownMenuCheckboxes } from "@/components/ui/drop-box";
 import { classInfo } from "@/lib/mockupData/data";
 
 export default function AdminDashboard() {
-  const groupedClasses = classInfo.reduce<Record<string, typeof classInfo>>(
+  const activeClasses = classInfo.filter((item) => item.status === "Active");
+
+  const groupedClasses = activeClasses.reduce<Record<string, typeof activeClasses>>(
     (acc, item) => {
       if (!acc[item.shift]) {
         acc[item.shift] = [];
@@ -36,12 +38,12 @@ export default function AdminDashboard() {
               Session: {getSessionTime(classes)}
             </div>
 
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,320px))] justify-items-start gap-6">
               {classes.map((item) => (
                 <ClassCard
                   key={item.code}
                   title={item.name}
-                  status={item.status ? "Active" : "Inactive"}
+                  status={item.status}
                   classNameValue={item.room}
                   shift={item.shift}
                   time={item.time}

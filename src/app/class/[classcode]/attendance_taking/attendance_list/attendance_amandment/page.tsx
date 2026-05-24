@@ -21,15 +21,6 @@ export default function AttendanceTaking() {
             <h1 className="mt-4 mb-4 text-3xl font-semibold tracking-tight text-rose-950 sm:text-4xl">
               {currentClass?.name ?? "Class"}
             </h1>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
-            >
-              <span aria-hidden="true" className="mr-2 text-base">
-                ←
-              </span>
-              Class List
-            </Link>
           </div>
           <div className="pt-6 text-right text-l leading-tight text-[#1f1f1f]">
             <p>Time: {currentClass?.time ?? "-"}</p>
@@ -51,7 +42,7 @@ export default function AttendanceTaking() {
         <Input placeholder="Search Student" className="max-w-sm" />
         <p className="text-sm text-[#1f1f1f]">Active student: 02/05</p>
       </div>
-      <section className="mx-auto w-full max-w-6xl border rounded-lg overflow-hidden">
+      <section className="mx-auto w-full max-w-6xl overflow-hidden rounded-lg border">
         <AttendanceCheckingList students={students} />
       </section>
       <section className="mx-auto flex w-full max-w-6xl items-center justify-end gap-4 py-5">

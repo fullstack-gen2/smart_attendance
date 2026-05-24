@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 
 import {
   Sidebar,
@@ -13,12 +13,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-import {
-  BookOpenIcon,
-  CirclePlusIcon,
-} from "lucide-react"
+import { BookOpenIcon, CirclePlusIcon } from "lucide-react";
 
 const data = {
   user: {
@@ -38,11 +35,9 @@ const data = {
       icon: <CirclePlusIcon />,
     },
   ],
-}
+};
 
-export function AppSidebar({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -52,18 +47,17 @@ export function AppSidebar({
               asChild
               className="data-[slot=sidebar-menu-button]:p-1.5"
             >
-                <NavMain items={data.navMain} />
+              <NavMain items={data.navMain} />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
 
-      <SidebarContent>
-      </SidebarContent>
+      <SidebarContent></SidebarContent>
 
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

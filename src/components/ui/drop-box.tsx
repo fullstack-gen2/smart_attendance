@@ -14,7 +14,9 @@ import {
 export function DropdownMenuCheckboxes() {
   const router = useRouter()
   const pathname = usePathname()
-  const isHistoryPage = pathname === "/dashboard/history_class"
+  const isHistoryPage =
+    pathname.startsWith("/dashboard/history_class") ||
+    pathname.includes("/history_class")
 
   return (
     <DropdownMenu>

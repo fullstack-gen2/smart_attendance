@@ -1,18 +1,56 @@
+"use client";
+
+import { Fragment } from "react";
 import { AppSidebar } from "@/components/sidebar2/app-sidebarV2";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+
+function getClassBreadcrumbTrail(pathname: string) {
+  if (pathname.includes("/history_list")) {
+    return ["Student Attendance List", "History Student Attendance List"];
+  }
+  if (pathname.includes("/attendance_taking/attendance_list/attendance_amandment")) {
+    return [
+      "Take Student Attendance",
+      "Student Daily Attendance",
+      "Student Attendance List Amendment",
+    ];
+  }
+  if (pathname.includes("/attendance_taking/attendance_list")) {
+    return ["Take Student Attendance", "Student Daily Attendance"];
+  }
+  if (pathname.includes("/attendance_taking")) {
+    return ["Take Student Attendance"];
+  }
+  if (pathname.includes("/report/warning_report")) {
+    return ["Class Report", "Warning Report"];
+  }
+  if (pathname.includes("/report/monthly_report")) {
+    return ["Class Report", "Monthly Report"];
+  }
+  if (pathname.includes("/report/weekly_report")) {
+    return ["Class Report", "Weekly Report"];
+  }
+  if (pathname.includes("/report")) {
+    return ["Class Report", "Student Daily Report"];
+  }
+  if (pathname.includes("/class_list")) {
+    return ["Student Attendance List"];
+  }
+  return ["Student Attendance List"];
+}
 
 export default function Page({
   children,
@@ -21,6 +59,9 @@ export default function Page({
   children: React.ReactNode;
   modal?: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const trail = getClassBreadcrumbTrail(pathname);
+
   return (
     <div className="min-h-screen">
       <SidebarProvider
@@ -43,14 +84,16 @@ export default function Page({
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">
-                      Build Your Application
-                    </BreadcrumbLink>
+                    <BreadcrumbPage>Class Information</BreadcrumbPage>
                   </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                  </BreadcrumbItem>
+                  {trail.map((label, index) => (
+                    <Fragment key={`${label}-${index}`}>
+                      <BreadcrumbSeparator className="hidden md:block" />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>{label}</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </Fragment>
+                  ))}
                 </BreadcrumbList>
               </Breadcrumb>
             </div>

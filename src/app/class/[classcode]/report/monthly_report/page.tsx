@@ -6,23 +6,22 @@ import { DataTable } from "@/components/classdetail/data-table";
 import { classInfo } from "@/lib/mockupData/data";
 import { monthlyReportAttendance } from "@/lib/mockupData/attendance";
 import { data as students } from "@/lib/mockupData/student";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 async function getData(): Promise<ReportAttendanceRow[]> {
   return students.map((student, index) => {
     const p = monthlyReportAttendance[index]?.p ?? 0;
     return {
-    order: index + 1,
-    id: student.id,
-    name: student.name,
-    gender: student.gender,
-    profile: student.profile,
-    p,
-    pm: monthlyReportAttendance[index]?.pm ?? 0,
-    l: monthlyReportAttendance[index]?.l ?? 0,
-    status: "active",
-    isAlertRow: p < 15,
+      order: index + 1,
+      id: student.id,
+      name: student.name,
+      gender: student.gender,
+      profile: student.profile,
+      p,
+      pm: monthlyReportAttendance[index]?.pm ?? 0,
+      l: monthlyReportAttendance[index]?.l ?? 0,
+      status: "active",
+      isAlertRow: p < 15,
     };
   });
 }
@@ -52,15 +51,6 @@ export default async function StartPage({
             <h1 className="mt-4 mb-4 text-3xl font-semibold tracking-tight text-rose-950 sm:text-4xl">
               {currentClass.name}
             </h1>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center rounded-full border border-white-200 bg-white px-4 py-2 text-sm font-medium text-rose-900 transition hover:-translate-y-0.5 hover:bg-rose-50"
-            >
-              <span aria-hidden="true" className="mr-2 text-base">
-                ←
-              </span>
-              Class List
-            </Link>
           </div>
           <div className="pt-6 text-right text-l leading-tight text-[#1f1f1f]"></div>
         </div>
@@ -78,6 +68,19 @@ export default async function StartPage({
           showStudentActions
           showAddStudentButton={false}
           studentSummaryText="Date : 17 days"
+          noteContent={
+            <div>
+              <p className="font-medium text-black">
+                Note:
+                <span className="ml-2 font-normal text-red-500">
+                  Student with red name is already reach warning
+                </span>
+              </p>
+              <p className="pl-10 text-amber-500">
+                Student with yellow name is almost reach warning
+              </p>
+            </div>
+          }
         />
         <div className="mt-2 text-sm leading-relaxed">
           <p>P stand for Present</p>
