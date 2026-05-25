@@ -1,12 +1,25 @@
-
 "use client";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Provider, useDispatch } from "react-redux";
+import { store } from "@/store/store";
+import { useEffect } from "react";
+import { loadFromStorage } from "@/store/features/authSlice";
+import type { AppDispatch } from "@/store/store";
 
-export default function Providers({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <TooltipProvider>{children}</TooltipProvider>;
+function StoreInitializer() {
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(loadFromStorage());
+  }, [dispatch]);
+  return null;
+}
+
+export default function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <Provider store={store}>
+      <StoreInitializer />
+      <TooltipProvider>{children}</TooltipProvider>
+    </Provider>
+  );
 }

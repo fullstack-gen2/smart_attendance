@@ -20,6 +20,20 @@ const nextConfig = {
         port: "3000",
         pathname: "/attendance/**",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8090",
+      },
+      {
+        protocol: "http",
+        hostname: "95.111.245.161",
+        port: "8090",
+      },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
   },
 };

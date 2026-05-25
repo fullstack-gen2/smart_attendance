@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   SidebarGroup,
@@ -6,39 +6,43 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import Image from "next/image"
-import Link from "next/link"
-import logo from "../../public/project-logo.png"
+} from "@/components/ui/sidebar";
+import Image from "next/image";
+import Link from "next/link";
+import logo from "../../public/project-logo.png";
+
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: React.ReactNode
-  }[]
+    title: string;
+    url: string;
+    icon?: React.ReactNode;
+    active?: boolean;
+  }[];
 }) {
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
-          <div className="flex items-center">
-          <Image
-            src={logo}
-            alt="Logo"
-            width={100}
-            height={100}
-          />
+        <div className="flex items-center px-2 py-1">
+          <Image src={logo} alt="Logo" width={90} height={90} />
         </div>
-        <SidebarMenu className="pt-11">
+        <SidebarMenu className="mt-4 gap-1">
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                <Link href={item.url} className="flex justify-between items-center">
-                  {item.icon}
-                  <span className="pl-2 text-lg font-medium text-muted-foreground transition-colors group-hover:text-foreground">
-                    {item.title}
-                  </span>
+              <SidebarMenuButton
+                tooltip={item.title}
+                asChild
+                isActive={item.active}
+                className={
+                  item.active
+                    ? "bg-[#273C97] text-white hover:bg-[#1e2e7a] hover:text-white"
+                    : "text-muted-foreground hover:bg-gray-100 hover:text-foreground"
+                }
+              >
+                <Link href={item.url} className="flex items-center gap-3 px-3 py-2">
+                  <span className="shrink-0">{item.icon}</span>
+                  <span className="text-sm font-medium">{item.title}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -46,5 +50,5 @@ export function NavMain({
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
-  )
+  );
 }

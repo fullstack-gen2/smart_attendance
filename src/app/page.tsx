@@ -1,8 +1,5 @@
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <div>
-      <h1>Welcome To Smart Attendance System</h1>
-    </div>
-  )
+export default function Root() {
+  redirect("/classes");
 }

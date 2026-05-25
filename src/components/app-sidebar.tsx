@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import * as React from "react";
+import { usePathname } from "next/navigation";
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 
 import {
   Sidebar,
@@ -13,36 +13,66 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 import {
-  BookOpenIcon,
-  CirclePlusIcon,
-} from "lucide-react"
+  LayoutDashboard,
+  CalendarDays,
+  Settings,
+  Users,
+  CirclePlus,
+  History,
+} from "lucide-react";
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+const defaultUser = {
+  name: "Admin",
+  email: "admin@istad.co",
+  avatar: "/avatars/shadcn.jpg",
+};
+
+const navItems = [
+  {
+    title: "Classes",
+    url: "/classes",
+    icon: <LayoutDashboard />,
   },
-  navMain: [
-    {
-      title: "Class Information",
-      url: "/dashboard",
-      icon: <BookOpenIcon />,
-    },
-    {
-      title: "Create Class",
-      url: "/dashboard/create_class",
-      icon: <CirclePlusIcon />,
-    },
-  ],
-}
+  {
+    title: "Schedule",
+    url: "/schedule",
+    icon: <CalendarDays />,
+  },
+  {
+    title: "Students",
+    url: "/students",
+    icon: <Users />,
+  },
+  {
+    title: "Create Class",
+    url: "/classes/create",
+    icon: <CirclePlus />,
+  },
+  {
+    title: "History",
+    url: "/classes/history",
+    icon: <History />,
+  },
+  {
+    title: "Settings",
+    url: "/settings",
+    icon: <Settings />,
+  },
+];
 
 export function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+
+  const items = navItems.map((item) => ({
+    ...item,
+    active: pathname === item.url || pathname.startsWith(item.url + "/"),
+  }));
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -52,18 +82,17 @@ export function AppSidebar({
               asChild
               className="data-[slot=sidebar-menu-button]:p-1.5"
             >
-                <NavMain items={data.navMain} />
+              <NavMain items={items} />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
 
-      <SidebarContent>
-      </SidebarContent>
+      <SidebarContent />
 
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={defaultUser} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
