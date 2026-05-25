@@ -3,7 +3,7 @@
     {
       "source": "/",
       "destination": "/attendance",
-      "permanent": true
+      "permanent": false
     }
   ]
 }
