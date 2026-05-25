@@ -1,22 +1,20 @@
 "use client"
 
-import * as React from "react"
-
 import { Button } from "@/components/ui/button"
+import { usePathname, useRouter } from "next/navigation"
 import { GrMenu } from "react-icons/gr";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
 export function DropdownMenuCheckboxes() {
-  const [showStatusBar, setShowStatusBar] = React.useState(true)
-  const [showActivityBar, setShowActivityBar] = React.useState(false)
-  const [showPanel, setShowPanel] = React.useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
+  const isHistoryPage = pathname === "/dashboard/history_class"
 
   return (
     <DropdownMenu>
@@ -28,15 +26,14 @@ export function DropdownMenuCheckboxes() {
       <DropdownMenuContent align="end" sideOffset={8} className="w-40 p-1">
         <DropdownMenuGroup>
           <DropdownMenuCheckboxItem
-            checked={showStatusBar ?? false}
-            onCheckedChange={setShowStatusBar}
+            checked={!isHistoryPage}
+            onSelect={() => router.push("/dashboard")}
           >
             Active Class
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
-            checked={showActivityBar}
-            onCheckedChange={setShowActivityBar}
-            disabled
+            checked={isHistoryPage}
+            onSelect={() => router.push("/dashboard/history_class")}
           >
             History
           </DropdownMenuCheckboxItem>

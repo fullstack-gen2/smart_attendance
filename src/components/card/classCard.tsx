@@ -13,6 +13,7 @@ interface ClassCardProps {
   students: string;
   code: string;
   href?: string;
+  headerClassName?: string;
 }
 
 export function ClassCard({
@@ -24,10 +25,13 @@ export function ClassCard({
   students,
   code,
   href,
+  headerClassName = "bg-[#273C97]",
 }: ClassCardProps) {
   const cardContent = (
     <Card className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-gray-300 bg-white p-0">
-      <div className="flex items-center justify-between bg-[#273C97] px-4 py-3 text-white">
+      <div
+        className={`flex items-center justify-between px-4 py-3 text-white ${headerClassName}`}
+      >
         <h2 className="text-3xl font-bold leading-none">{title}</h2>
 
         <Badge className="bg-transparent p-0 text-sm font-medium text-white hover:bg-transparent">

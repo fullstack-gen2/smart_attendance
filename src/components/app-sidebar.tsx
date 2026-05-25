@@ -16,13 +16,8 @@ import {
 } from "@/components/ui/sidebar"
 
 import {
-  LayoutDashboardIcon,
-  ListIcon,
-  ChartBarIcon,
-  FolderIcon,
-  UsersIcon,
-  Settings2Icon,
-  CommandIcon,
+  BookOpenIcon,
+  CirclePlusIcon,
 } from "lucide-react"
 
 const data = {
@@ -31,42 +26,16 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-
   navMain: [
     {
-      title: "Dashboard",
+      title: "Class Information",
       url: "/dashboard",
-      icon: <LayoutDashboardIcon />,
+      icon: <BookOpenIcon />,
     },
     {
       title: "Create Class",
       url: "/dashboard/create_class",
-      icon: <CommandIcon />,
-    },
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: <Settings2Icon />,
-    },
-    {
-      title: "Lifecycle",
-      url: "/lifecycle",
-      icon: <ListIcon />,
-    },
-    {
-      title: "Analytics",
-      url: "/analytics",
-      icon: <ChartBarIcon />,
-    },
-    {
-      title: "Projects",
-      url: "/projects",
-      icon: <FolderIcon />,
-    },
-    {
-      title: "Team",
-      url: "/team",
-      icon: <UsersIcon />,
+      icon: <CirclePlusIcon />,
     },
   ],
 }

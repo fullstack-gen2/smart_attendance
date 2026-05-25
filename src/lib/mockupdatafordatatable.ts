@@ -3,7 +3,7 @@ export type AttendanceList = {
   id: string;
   name: string;
   gender: string;
-  amount: number;
-  status: "pending" | "Active" | "pm";
   profile: string;
+  phoneNumber: string;
+  dateOfBirth: string;
 };
