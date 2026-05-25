@@ -51,54 +51,6 @@ export const data: Student[] = [
     dateOfBirth: "2004-09-03",
     status: AttendanceStatus.PRESENT,
   },
-<<<<<<< HEAD
-]
-
-
-export const studentProfileInfo = {
-  username: "Pisoth",
-  email: "Pisoth@student.istad.kh",
-  information: [
-    {
-      label: "honorific",
-      value: "None",
-      wide: true,
-    },
-    {
-      label: "Full Name (English)",
-      value: "Leonel Messi",
-    },
-    {
-      label: "Full Name (Khmer)",
-      value: "លីអូណែល មេស៊ី",
-    },
-    {
-      label: "Gender",
-      value: "Male",
-    },
-    {
-      label: "Birth Of Date",
-      value: "10-10-1982",
-    },
-    {
-      label: "Nationality",
-      value: "Khmer",
-    },
-    {
-      label: "Ethnicity",
-      value: "None",
-    },
-    {
-      label: "Telephone",
-      value: "+855 96 101 101",
-    },
-    {
-      label: "Address",
-      value: "Phnom Penh",
-    },
-  ],
-}
-=======
   {
     id: "INV006",
     profile:
@@ -160,4 +112,47 @@ export const studentProfileInfo = {
     status: AttendanceStatus.LATE,
   },
 ];
->>>>>>> sui
+
+export const studentProfileInfo = {
+  username: "Pisoth",
+  email: "Pisoth@student.istad.kh",
+  information: [
+    {
+      label: "honorific",
+      value: "None",
+      wide: true,
+    },
+    {
+      label: "Full Name (English)",
+      value: "Leonel Messi",
+    },
+    {
+      label: "Full Name (Khmer)",
+      value: "លីអូណែល មេស៊ី",
+    },
+    {
+      label: "Gender",
+      value: "Male",
+    },
+    {
+      label: "Birth Of Date",
+      value: "10-10-1982",
+    },
+    {
+      label: "Nationality",
+      value: "Khmer",
+    },
+    {
+      label: "Ethnicity",
+      value: "None",
+    },
+    {
+      label: "Telephone",
+      value: "+855 96 101 101",
+    },
+    {
+      label: "Address",
+      value: "Phnom Penh",
+    },
+  ],
+};

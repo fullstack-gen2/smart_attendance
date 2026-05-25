@@ -1,14 +1,15 @@
-'use client'
-import { type ReactNode, useState } from 'react'
-import { Provider } from 'react-redux'
-import { makeStore, type AppStore } from '@/store/store'
+"use client"
+
+import { Provider } from "react-redux"
+import { useState } from "react"
+import { makeStore } from "@/store/store"
 
 export default function StoreProvider({
   children,
 }: {
-  children: ReactNode
+  children: React.ReactNode
 }) {
-  const [store] = useState<AppStore>(() => makeStore())
+  const [store] = useState(() => makeStore())
 
   return <Provider store={store}>{children}</Provider>
 }

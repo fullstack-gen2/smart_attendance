@@ -6,11 +6,11 @@ export default function AdminDashboard() {
       <div className="mx-auto w-full">
         {/* Title */}
         <h1 className="mb-8 w-full pr-5 text-3xl font-bold text-black">
-          Class Info
+          Class 
         </h1>
 
         {/* Cards */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
+        <div className="">
           {Array.from({ length: 20 }).map((_, index) => (
             <ClassCard
               key={index}
