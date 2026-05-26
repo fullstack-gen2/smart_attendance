@@ -427,7 +427,7 @@ export default function CreatingClassForm() {
 
           {/* Action Buttons */}
           <Field orientation="horizontal" className="flex justify-end gap-2">
-            <Button variant="outline" type="reset">
+            <Button onClick={()=> onReset()} variant="outline" type="reset">
               Cancel
             </Button>
 

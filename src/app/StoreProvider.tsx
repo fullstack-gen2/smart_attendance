@@ -10,6 +10,5 @@ export default function StoreProvider({
   children: React.ReactNode
 }) {
   const [store] = useState(() => makeStore())
-
   return <Provider store={store}>{children}</Provider>
-}
+} 
