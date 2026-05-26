@@ -81,8 +81,6 @@ export default function ScanPage() {
 
     try {
       const deviceId = localStorage.getItem("attendance_device_id") ?? "";
-      const API_URL =
-        process.env.NEXT_PUBLIC_API_URL || "https://attendance.icheck.today";
 
       const body: Record<string, unknown> = {
         studentId: userId,
@@ -94,14 +92,12 @@ export default function ScanPage() {
         body.longitude = location.lng;
       }
 
-      const res = await fetch(
-        `${API_URL}/api/attendances/dynamic-qr-check-in`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
+      // Use proxy route — same origin, no CORS preflight
+      const res = await fetch("/api/proxy/attendances/dynamic-qr-check-in", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
       const data = await res.json();
 

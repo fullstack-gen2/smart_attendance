@@ -44,10 +44,8 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const API_URL =
-        process.env.NEXT_PUBLIC_API_URL || "https://attendance.icheck.today";
-
-      const res = await fetch(`${API_URL}/api/v1/auth/login`, {
+      // Call the Next.js proxy route — same origin, no CORS issue.
+      const res = await fetch(`/api/proxy/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, deviceId }),
