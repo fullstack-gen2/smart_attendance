@@ -3,7 +3,7 @@ name: Deploy Vercel
 on:
   push:
     branches:
-      - thornie
+      - frontend
 
 jobs:
   deploy:
