@@ -10,11 +10,11 @@ import type {
 } from "@/lib/type/apiTypes";
 import Link from "next/link";
 
-const API_URL = process.env.API_URL || "http://localhost:8090";
+const API_URL = process.env.API_URL || "https://attendance.icheck.today/api/v1/attendance";
 
 async function getClassroom(id: string): Promise<ClassroomResponse | null> {
   try {
-    const res = await fetch(`${API_URL}/api/v1/classrooms/${id}`, {
+    const res = await fetch(`${API_URL}/classrooms/${id}`, {
       cache: "no-store",
     });
     if (!res.ok) return null;
@@ -28,7 +28,7 @@ async function getClassroom(id: string): Promise<ClassroomResponse | null> {
 async function getStudents(classroomId: string): Promise<AttendanceList[]> {
   try {
     const res = await fetch(
-      `${API_URL}/api/v1/classrooms/${classroomId}/students?page=0&size=200`,
+      `${API_URL}/classrooms/${classroomId}/students?page=0&size=200`,
       { cache: "no-store" }
     );
     if (!res.ok) return [];

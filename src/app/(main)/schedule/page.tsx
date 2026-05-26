@@ -6,7 +6,7 @@ import type {
 import { Badge } from "@/components/ui/badge";
 import { Clock, BookOpen, User } from "lucide-react";
 
-const API_URL = process.env.API_URL || "http://localhost:8090";
+const API_URL = process.env.API_URL || "https://attendance.icheck.today/api/v1/attendance";
 
 const DAYS_ORDER = [
   "MONDAY",
@@ -46,7 +46,7 @@ function fmt(time: string) {
 
 async function getSchedules(): Promise<ScheduleResponse[]> {
   try {
-    const res = await fetch(`${API_URL}/api/v1/schedules?page=0&size=200`, {
+    const res = await fetch(`${API_URL}/schedules?page=0&size=200`, {
       cache: "no-store",
     });
     if (!res.ok) return [];

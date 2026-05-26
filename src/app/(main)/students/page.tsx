@@ -3,11 +3,11 @@ import { Badge } from "@/components/ui/badge";
 import { Users } from "lucide-react";
 import Image from "next/image";
 
-const API_URL = process.env.API_URL || "http://localhost:8090";
+const API_URL = process.env.API_URL || "https://attendance.icheck.today/api/v1/attendance";
 
 async function getStudents(): Promise<StudentResponse[]> {
   try {
-    const res = await fetch(`${API_URL}/api/v1/users/students?page=0&size=200`, {
+    const res = await fetch(`${API_URL}/users/students?page=0&size=200`, {
       cache: "no-store",
     });
     if (!res.ok) return [];

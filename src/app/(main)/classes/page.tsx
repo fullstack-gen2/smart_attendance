@@ -6,12 +6,12 @@ import type {
   PageResponse,
 } from "@/lib/type/apiTypes";
 
-const API_URL = process.env.API_URL || "http://localhost:8090";
+const API_URL = process.env.API_URL || "https://attendance.icheck.today/api/v1/attendance";
 
 async function getClassrooms(): Promise<ClassroomResponse[]> {
   try {
     const res = await fetch(
-      `${API_URL}/api/v1/classrooms?page=0&size=100`,
+      `${API_URL}/classrooms?page=0&size=100`,
       { cache: "no-store" }
     );
     if (!res.ok) return [];
@@ -25,7 +25,7 @@ async function getClassrooms(): Promise<ClassroomResponse[]> {
 
 async function getDashboardSummary(): Promise<DashboardSummary | null> {
   try {
-    const res = await fetch(`${API_URL}/api/v1/dashboard/summary`, {
+    const res = await fetch(`${API_URL}/dashboard/summary`, {
       cache: "no-store",
     });
     if (!res.ok) return null;

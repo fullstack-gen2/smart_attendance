@@ -3,7 +3,7 @@ import type { SystemSetting } from "@/lib/type/settingTypes";
 import { Badge } from "@/components/ui/badge";
 import { Settings, Clock, MapPin, Bell, QrCode, Shield } from "lucide-react";
 
-const API_URL = process.env.API_URL || "http://localhost:8090";
+const API_URL = process.env.API_URL || "https://attendance.icheck.today/api/v1/attendance";
 
 const ICON_MAP: Record<string, React.ElementType> = {
   early_checkin_minutes: Clock,
@@ -49,7 +49,7 @@ function formatValue(setting: SystemSetting) {
 
 async function getSettings(): Promise<SystemSetting[]> {
   try {
-    const res = await fetch(`${API_URL}/api/v1/settings`, {
+    const res = await fetch(`${API_URL}/settings`, {
       cache: "no-store",
     });
     if (!res.ok) return [];

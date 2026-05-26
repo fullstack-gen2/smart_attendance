@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const BACKEND = process.env.API_URL || "https://attendance.icheck.today";
+const BACKEND = process.env.API_URL || "https://attendance.icheck.today/api/v1/attendance";
 
 /**
  * Proxy for POST /api/attendances/dynamic-qr-check-in
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const res = await fetch(`${BACKEND}/api/attendances/dynamic-qr-check-in`, {
+    const res = await fetch(`${BACKEND}/attendances/dynamic-qr-check-in`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

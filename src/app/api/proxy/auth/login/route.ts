@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const BACKEND = process.env.API_URL || "https://attendance.icheck.today";
+const BACKEND = process.env.API_URL;
 
 /**
  * Proxy for POST /api/v1/auth/login
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const res = await fetch(`${BACKEND}/api/v1/auth/login`, {
+    const res = await fetch(`${BACKEND}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
