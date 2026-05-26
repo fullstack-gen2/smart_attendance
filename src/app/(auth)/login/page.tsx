@@ -44,8 +44,8 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      // Call the Next.js proxy route — same origin, no CORS issue.
-      const res = await fetch(`/api/proxy/auth/login`, {
+      // basePath is /attendance — must be included in client-side fetch.
+      const res = await fetch(`/attendance/api/proxy/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, deviceId }),
@@ -81,11 +81,12 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <Image
-            src="/project-logo.png"
+            src="https://res.cloudinary.com/dsmqsivcj/image/upload/v1779733974/lwg6puq41ne1bpp9jywj.png"
             alt="Smart Attendance"
             width={80}
             height={80}
             className="mx-auto mb-4"
+            unoptimized
           />
           <h1 className="text-3xl font-bold text-[#273C97]">Sign in</h1>
           <p className="mt-2 text-sm text-gray-500">

@@ -92,8 +92,8 @@ export default function ScanPage() {
         body.longitude = location.lng;
       }
 
-      // Use proxy route — same origin, no CORS preflight
-      const res = await fetch("/api/proxy/attendances/dynamic-qr-check-in", {
+      // basePath is /attendance — must be included in client-side fetch.
+      const res = await fetch("/attendance/api/proxy/attendances/dynamic-qr-check-in", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

@@ -9,7 +9,9 @@ import {
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../public/project-logo.png";
+
+const LOGO_URL =
+  "https://res.cloudinary.com/dsmqsivcj/image/upload/v1779733974/lwg6puq41ne1bpp9jywj.png";
 
 export function NavMain({
   items,
@@ -25,7 +27,7 @@ export function NavMain({
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <div className="flex items-center px-2 py-1">
-          <Image src={logo} alt="Logo" width={90} height={90} />
+          <Image src={LOGO_URL} alt="Logo" width={90} height={90} unoptimized />
         </div>
         <SidebarMenu className="mt-4 gap-1">
           {items.map((item) => (
