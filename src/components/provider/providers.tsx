@@ -6,6 +6,7 @@ import { store } from "@/store/store";
 import { useEffect } from "react";
 import { loadFromStorage } from "@/store/features/authSlice";
 import type { AppDispatch } from "@/store/store";
+import { SessionProvider } from "next-auth/react";
 
 function StoreInitializer() {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,9 +18,11 @@ function StoreInitializer() {
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <Provider store={store}>
-      <StoreInitializer />
-      <TooltipProvider>{children}</TooltipProvider>
-    </Provider>
+    <SessionProvider>
+      <Provider store={store}>
+        <StoreInitializer />
+        <TooltipProvider>{children}</TooltipProvider>
+      </Provider>
+    </SessionProvider>
   );
 }

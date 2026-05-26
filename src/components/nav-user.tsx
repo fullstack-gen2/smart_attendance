@@ -26,41 +26,29 @@ import {
   BellIcon,
   LogOutIcon,
   LogInIcon,
+  Loader2,
 } from "lucide-react";
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState, AppDispatch } from "@/store/store";
-import { logout } from "@/store/features/authSlice";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
-export function NavUser({
-  user: defaultUser,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser() {
   const { isMobile } = useSidebar();
-  const dispatch = useDispatch<AppDispatch>();
-  const auth = useSelector((state: RootState) => state.auth);
+  const { data: session, status } = useSession();
 
-  const displayName = auth.isAuthenticated
-    ? (auth.fullName ?? defaultUser.name)
-    : defaultUser.name;
-  const displayEmail = auth.isAuthenticated
-    ? (auth.role ?? defaultUser.email)
-    : defaultUser.email;
+  const loading = status === "loading";
+  const loggedIn = status === "authenticated";
+
+  const displayName = session?.user?.name ?? "Guest";
+  const displayEmail = session?.user?.email ?? "";
+  const displayRole = session?.user?.role ?? "";
+  const avatar = session?.user?.image ?? "";
+
   const initials = displayName
     .split(" ")
-    .map((n) => n[0])
+    .map((n: string) => n[0])
     .slice(0, 2)
     .join("")
     .toUpperCase();
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
 
   return (
     <SidebarMenu>
@@ -71,21 +59,28 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={defaultUser.avatar} alt={displayName} />
-                <AvatarFallback className="rounded-lg">
-                  {initials}
-                </AvatarFallback>
-              </Avatar>
+              {loading ? (
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              ) : (
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarImage src={avatar} alt={displayName} />
+                  <AvatarFallback className="rounded-lg bg-[#273C97] text-white text-xs">
+                    {loggedIn ? initials : "?"}
+                  </AvatarFallback>
+                </Avatar>
+              )}
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{displayName}</span>
+                <span className="truncate font-medium">
+                  {loading ? "Loading…" : displayName}
+                </span>
                 <span className="truncate text-xs text-muted-foreground">
-                  {displayEmail}
+                  {displayRole || displayEmail}
                 </span>
               </div>
               <EllipsisVerticalIcon className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             side={isMobile ? "bottom" : "right"}
@@ -95,9 +90,9 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={defaultUser.avatar} alt={displayName} />
-                  <AvatarFallback className="rounded-lg">
-                    {initials}
+                  <AvatarImage src={avatar} alt={displayName} />
+                  <AvatarFallback className="rounded-lg bg-[#273C97] text-white text-xs">
+                    {loggedIn ? initials : "?"}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -105,10 +100,17 @@ export function NavUser({
                   <span className="truncate text-xs text-muted-foreground">
                     {displayEmail}
                   </span>
+                  {displayRole && (
+                    <span className="truncate text-xs font-medium text-[#273C97]">
+                      {displayRole}
+                    </span>
+                  )}
                 </div>
               </div>
             </DropdownMenuLabel>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <CircleUserRoundIcon />
@@ -119,18 +121,21 @@ export function NavUser({
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
-            {auth.isAuthenticated ? (
-              <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+
+            {loggedIn ? (
+              <DropdownMenuItem
+                onClick={() => signOut({ callbackUrl: "/login" })}
+                className="text-red-600"
+              >
                 <LogOutIcon />
-                Log out
+                Sign out
               </DropdownMenuItem>
             ) : (
-              <DropdownMenuItem asChild>
-                <Link href="/login" className="flex items-center gap-2">
-                  <LogInIcon />
-                  Sign in
-                </Link>
+              <DropdownMenuItem onClick={() => signIn("istad-iam")}>
+                <LogInIcon />
+                Sign in
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>

@@ -24,11 +24,6 @@ import {
   History,
 } from "lucide-react";
 
-const defaultUser = {
-  name: "Admin",
-  email: "admin@istad.co",
-  avatar: "/avatars/shadcn.jpg",
-};
 
 const navItems = [
   {
@@ -91,7 +86,7 @@ export function AppSidebar({
       <SidebarContent />
 
       <SidebarFooter>
-        <NavUser user={defaultUser} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   );
