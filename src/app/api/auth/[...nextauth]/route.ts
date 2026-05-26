@@ -8,9 +8,10 @@ export const authOptions: NextAuthOptions = {
       type: "oauth",
       clientId: "acumen-standard",
       clientSecret: "qwerqwer",
+      // Redirect directly to IAM login without OAuth2 parameters
       authorization: {
         url: "https://iam.istad.co/login",
-        params: { scope: "openid profile email" },
+        params: {},
       },
       token: {
         url: "https://iam.istad.co/oauth2/token",
@@ -18,8 +19,7 @@ export const authOptions: NextAuthOptions = {
       userinfo: {
         url: "https://iam.istad.co/oauth2/userinfo",
       },
-      idToken: true,
-      checks: ["state"],
+      checks: [],
       profile(profile: Record<string, unknown>) {
         const roles = profile.roles as string[] | undefined;
         const role = profile.role as string | undefined;
