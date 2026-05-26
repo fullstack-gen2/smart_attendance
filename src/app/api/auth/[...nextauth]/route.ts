@@ -6,13 +6,14 @@ export const authOptions: NextAuthOptions = {
       id: "istad-iam",
       name: "ISTAD IAM",
       type: "oauth",
-      // Auto-discovers authorization + token endpoints from OIDC discovery doc
-      wellKnown: "https://iam.istad.co/.well-known/openid-configuration",
       clientId: "acumen-standard",
       clientSecret: "qwerqwer",
+      authorizationUrl: "https://iam.istad.co/login",
+      tokenUrl: "https://iam.istad.co/oauth2/token",
+      userInfoUrl: "https://iam.istad.co/oauth2/userinfo",
       authorization: { params: { scope: "openid profile email" } },
       idToken: true,
-      checks: ["pkce", "state"],
+      checks: ["state"],
       profile(profile: Record<string, unknown>) {
         const roles = profile.roles as string[] | undefined;
         const role = profile.role as string | undefined;
