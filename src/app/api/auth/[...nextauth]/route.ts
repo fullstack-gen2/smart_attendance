@@ -8,10 +8,16 @@ export const authOptions: NextAuthOptions = {
       type: "oauth",
       clientId: "acumen-standard",
       clientSecret: "qwerqwer",
-      authorizationUrl: "https://iam.istad.co/login",
-      tokenUrl: "https://iam.istad.co/oauth2/token",
-      userInfoUrl: "https://iam.istad.co/oauth2/userinfo",
-      authorization: { params: { scope: "openid profile email" } },
+      authorization: {
+        url: "https://iam.istad.co/login",
+        params: { scope: "openid profile email" },
+      },
+      token: {
+        url: "https://iam.istad.co/oauth2/token",
+      },
+      userinfo: {
+        url: "https://iam.istad.co/oauth2/userinfo",
+      },
       idToken: true,
       checks: ["state"],
       profile(profile: Record<string, unknown>) {
