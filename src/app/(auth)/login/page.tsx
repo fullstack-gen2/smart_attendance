@@ -13,10 +13,10 @@ export default function LoginPage() {
   useEffect(() => {
     if (status === "authenticated") {
       // Already logged in — go straight to app
-      router.replace("/classes");
+      router.replace("/classes"); // Next.js basePath ("/attendance") is prepended automatically
     } else if (status === "unauthenticated") {
       // Not logged in — redirect immediately to IAM OAuth2 form
-      signIn("istad-iam", { callbackUrl: "/classes" });
+      signIn("istad-iam", { callbackUrl: "/attendance/classes" });
     }
     // status === "loading" → wait
   }, [status, router]);

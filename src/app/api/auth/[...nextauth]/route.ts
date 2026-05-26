@@ -7,9 +7,9 @@ export const authOptions: NextAuthOptions = {
       name: "ISTAD IAM",
       type: "oauth",
       // Auto-discovers authorization + token endpoints from OIDC discovery doc
-      wellKnown: `${process.env.OAUTH2_ISSUER_URL ?? "https://iam.istad.co"}/.well-known/openid-configuration`,
-      clientId: process.env.OAUTH2_CLIENT_ID!,
-      clientSecret: process.env.OAUTH2_CLIENT_SECRET!,
+      wellKnown: "https://iam.istad.co/.well-known/openid-configuration",
+      clientId: "acumen-standard",
+      clientSecret: "qwerqwer",
       authorization: { params: { scope: "openid profile email" } },
       idToken: true,
       checks: ["pkce", "state"],
