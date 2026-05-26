@@ -18,7 +18,7 @@ function StoreInitializer() {
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <SessionProvider>
+    <SessionProvider basePath="/attendance/api/auth">
       <Provider store={store}>
         <StoreInitializer />
         <TooltipProvider>{children}</TooltipProvider>

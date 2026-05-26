@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL  ;
+  process.env.NEXT_PUBLIC_API_URL || "https://insight.istad.co/attendance";
 
 export const baseApi = createApi({
   reducerPath: "api",
