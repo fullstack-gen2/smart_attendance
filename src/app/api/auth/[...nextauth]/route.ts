@@ -8,11 +8,12 @@ export const authOptions: NextAuthOptions = {
       type: "oauth",
       clientId: "acumen-standard",
       clientSecret: "qwerqwer",
-      // Redirect to IAM login with minimal params - just what's needed for redirect
+      // Use OAuth2 authorize endpoint (handles login + callback flow)
       authorization: {
-        url: "https://iam.istad.co/login",
+        url: "https://iam.istad.co/oauth2/authorize",
         params: {
-          client_id: "acumen-standard",
+          scope: "openid profile email",
+          response_type: "code",
           redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/istad-iam`,
         },
       },
