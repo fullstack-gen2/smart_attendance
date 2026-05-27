@@ -1,40 +1,28 @@
 /**
  * Get current authenticated user from backend
- * Backend endpoint: GET /api/v1/attendance/auth/me
- * Only works on client-side after authentication
+ * Client-only function - safe during SSR
  */
 export async function getCurrentUser(token?: string) {
-  // Skip during server-side rendering
-  if (typeof window === "undefined") {
-    return null;
-  }
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://insight.istad.co/attendance";
-
-    if (!baseUrl) {
+    // Ensure we're on client-side only
+    if (typeof window === "undefined") {
       return null;
     }
 
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-    };
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://insight.istad.co/attendance";
+    const url = `${apiUrl}/auth/me`;
 
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
-    }
-
-    const response = await fetch(`${baseUrl}/auth/me`, {
+    const response = await fetch(url, {
       method: "GET",
-      headers,
+      headers: {
+        "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
     });
 
-    if (!response.ok) {
-      return null;
-    }
-
+    if (!response.ok) return null;
     return await response.json();
-  } catch (error) {
-    console.error("Failed to fetch current user:", error);
+  } catch {
     return null;
   }
 }
