@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   Avatar,
   AvatarFallback,
@@ -28,27 +29,47 @@ import {
   LogInIcon,
   Loader2,
 } from "lucide-react";
-import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import { getCurrentUser } from "@/lib/api/user";
+
+interface CurrentUser {
+  id?: string;
+  username?: string;
+  fullName?: string;
+  email?: string;
+  role?: string;
+  picture?: string;
+}
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { data: session, status } = useSession();
+  const [user, setUser] = useState<CurrentUser | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const loading = status === "loading";
-  const loggedIn = status === "authenticated";
+  useEffect(() => {
+    const fetchUser = async () => {
+      setLoading(true);
+      const userData = await getCurrentUser();
+      setUser(userData);
+      setLoading(false);
+    };
 
-  const displayName = session?.user?.name ?? "Guest";
-  const displayEmail = session?.user?.email ?? "";
-  const displayRole = session?.user?.role ?? "";
-  const avatar = session?.user?.image ?? "";
+    fetchUser();
+  }, []);
+
+  const loggedIn = !!user;
+  const displayName = user?.fullName || user?.username || "Guest";
+  const displayEmail = user?.email ?? "";
+  const displayRole = user?.role ?? "";
+  const avatar = user?.picture ?? "";
 
   const initials = displayName
     .split(" ")
+    .filter(Boolean)
     .map((n: string) => n[0])
     .slice(0, 2)
     .join("")
-    .toUpperCase();
+    .toUpperCase() || "?";
 
   return (
     <SidebarMenu>
@@ -124,18 +145,16 @@ export function NavUser() {
 
             <DropdownMenuSeparator />
 
-            {loggedIn ? (
+            {loggedIn && (
               <DropdownMenuItem
-                onClick={() => signOut({ callbackUrl: "/login" })}
+                onClick={() => {
+                  // Redirect to IAM logout (gateway handles it)
+                  window.location.href = "https://iam.istad.co/logout";
+                }}
                 className="text-red-600"
               >
                 <LogOutIcon />
                 Sign out
-              </DropdownMenuItem>
-            ) : (
-              <DropdownMenuItem onClick={() => signIn("istad-iam")}>
-                <LogInIcon />
-                Sign in
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>
