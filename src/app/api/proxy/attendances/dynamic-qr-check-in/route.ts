@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const BACKEND = process.env.API_URL || "https://attendance.icheck.today/api/v1/attendance";
+const BACKEND = process.env.API_URL || "";
 
-/**
- * Proxy for POST /api/attendances/dynamic-qr-check-in
- * Browser → Next.js server (same origin) → Backend (no CORS)
- */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

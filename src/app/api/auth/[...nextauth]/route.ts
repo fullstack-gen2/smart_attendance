@@ -8,8 +8,6 @@ export const authOptions: NextAuthOptions = {
       type: "oauth",
       clientId: "acumen-standard",
       clientSecret: "qwerqwer",
-      // Redirect to IAM login page with OAuth2 parameters
-      // IAM login page handles authentication and redirects back with code
       authorization: {
         url: "https://iam.istad.co/login",
         params: {
