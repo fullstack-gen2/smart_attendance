@@ -2,12 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 const BACKEND = process.env.API_URL;
 
-/**
- * Proxy for POST /api/v1/auth/login
- *
- * Browser → Next.js server (same origin, no CORS) → Backend
- * This completely avoids the browser-to-backend CORS preflight.
- */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
