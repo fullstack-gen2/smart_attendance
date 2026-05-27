@@ -1,12 +1,63 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
-  providers: [],
+  providers: [
+    {
+      id: "istad-iam",
+      name: "ISTAD IAM",
+      type: "oauth",
+      clientId: "acumen-standard",
+      clientSecret: "qwerqwer",
+      authorization: {
+        url: "https://iam.istad.co/login",
+        params: { scope: "openid profile email" },
+      },
+      token: "https://iam.istad.co/oauth2/token",
+      userinfo: "https://iam.istad.co/oauth2/userinfo",
+      idToken: true,
+      checks: ["state"],
+      profile(profile: Record<string, unknown>) {
+        const roles = profile.roles as string[] | undefined;
+        const role = profile.role as string | undefined;
+        return {
+          id: profile.sub as string,
+          name: (profile.name ?? profile.preferred_username ?? profile.sub) as string,
+          email: (profile.email ?? "") as string,
+          image: (profile.picture ?? null) as string | null,
+          role: roles?.[0] ?? role ?? "USER",
+        };
+      },
+    },
+  ],
+
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      if (account?.access_token) {
+        token.accessToken = account.access_token;
+      }
+      if (profile) {
+        const p = profile as Record<string, unknown>;
+        const roles = p.roles as string[] | undefined;
+        token.role = roles?.[0] ?? (p.role as string | undefined) ?? token.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken as string | undefined;
+      if (session.user) {
+        session.user.role = token.role;
+      }
+      return session;
+    },
+  },
+
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
+
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    error: "/classes",
-  },
 };
 
 const handler = NextAuth(authOptions);
