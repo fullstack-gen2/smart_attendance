@@ -49,7 +49,7 @@ function formatValue(setting: SystemSetting) {
 
 async function getSettings(): Promise<SystemSetting[]> {
   try {
-    const res = await fetch(`${API_URL}/settings`, {
+    const res = await fetch(`${API_URL}/api/v1/attendance/settings`, {
       cache: "no-store",
     });
     if (!res.ok) return [];
