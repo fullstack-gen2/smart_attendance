@@ -39,7 +39,6 @@ export default async function StartPage() {
             </Link>
           </div>
           <div className="border px-3 pr-4 p-2 rounded-2xl bg-gray-100 text-right text-sm text-l leading-tight text-[#1f1f1f]">
-            <p>Time: 8:00-12:00 AM</p>
             <p>Student(T/F): 11/03</p>
             <p>Class Code:A001</p>
           </div>
@@ -47,13 +46,15 @@ export default async function StartPage() {
         <div className="flex justify-between">
           <div>
             <p className="mt-3 text-l text-[#1f1f1f]">Class: Full-Stack</p>
+            <p>Time: 8:00-12:00 AM</p>
+
             <h2 className="mt-2 text-2xl leading-tight text-[#1f1f1f]">
-              ការបញ្ជីវត្តមានសិស្ស-Student Attendance List-April
+              បញ្ជីរាយវត្តមានសិស្ស-Student Attendance List-April
             </h2>
           </div>
-          <Link href={"/qrcode"} >
+          {/* <Link href={"/qrcode​"} >
             <IoQrCodeOutline size={50}/>
-          </Link>
+          </Link> */}
         </div>
       </section>
       <div className="mx-auto w-full max-w-6xl px-2 text-gray-500">

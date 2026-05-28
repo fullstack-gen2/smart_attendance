@@ -5,7 +5,6 @@ import { QRCodeCanvas } from "qrcode.react";
 
 export default function MyQR() {
   const qrUrl = "https://yourapp.com/checkin?token=abc123";
-
   return (
     <>
       <div>

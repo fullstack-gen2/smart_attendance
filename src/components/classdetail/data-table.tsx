@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { ListFilter, UserRoundSearch } from "lucide-react";
 import * as React from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -57,9 +57,13 @@ export function DataTable<TData, TValue>({
   showNote = true,
 }: DataTableProps<TData, TValue>) {
   const params = useParams<{ classcode?: string | string[] }>();
+  const pathname = usePathname();
   const classcode = Array.isArray(params.classcode)
     ? params.classcode[0]
     : params.classcode;
+  const showReportActions = classcode
+    ? pathname.startsWith(`/class/${classcode}/report`)
+    : pathname.includes("/report");
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -99,48 +103,70 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <div className="flex items-center gap-4">
-          <Link
-            href={classcode ? `/class/${classcode}/class_list` : "/class"}
-            aria-label="Student list options"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
-          >
-            <UserRoundSearch className="h-5 w-5" />
-          </Link>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                aria-label="Filter"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
-              >
-                <ListFilter className="h-5 w-5" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-40 p-1">
-              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                <Link href={classcode ? `/class/${classcode}/report` : "/class"}>
-                  Day Report
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                <Link href={classcode ? `/class/${classcode}/report/weekly_report` : "/class"}>
-                  Weekly Report
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                <Link href={classcode ? `/class/${classcode}/report/monthly_report` : "/class"}>
-                  Monthly Report
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
-                <Link href={classcode ? `/class/${classcode}/report/warning_report` : "/class"}>
-                  Student Warning
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        {showReportActions && (
+          <div className="flex items-center gap-4">
+            <Link
+              href={classcode ? `/class/${classcode}/class_list` : "/class"}
+              aria-label="Student list options"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
+            >
+              <UserRoundSearch className="h-5 w-5" />
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Filter"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
+                >
+                  <ListFilter className="h-5 w-5" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-40 p-1">
+                <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
+                  <Link
+                    href={classcode ? `/class/${classcode}/report` : "/class"}
+                  >
+                    Day Report
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
+                  <Link
+                    href={
+                      classcode
+                        ? `/class/${classcode}/report/weekly_report`
+                        : "/class"
+                    }
+                  >
+                    Weekly Report
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
+                  <Link
+                    href={
+                      classcode
+                        ? `/class/${classcode}/report/monthly_report`
+                        : "/class"
+                    }
+                  >
+                    Monthly Report
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
+                  <Link
+                    href={
+                      classcode
+                        ? `/class/${classcode}/report/warning_report`
+                        : "/class"
+                    }
+                  >
+                    Student Warning
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
       </div>
       {showStudentActions && (
         <div className="mb-4 flex items-end justify-between gap-4">

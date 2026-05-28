@@ -1,12 +1,13 @@
-"use client";
-import { AttendanceCheckingList } from "@/components/table_class/check_attendance";
+import AttendanceCheckingList from "@/components/table_class/check_attendance";
 import { Input } from "@/components/ui/input";
-import { data as students } from "@/lib/mockupData/student";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
-export default function AttendanceTaking() {
-  const { classcode } = useParams<{ classcode: string }>();
+export default async function AttendanceTaking({
+  params,
+}: {
+  params: Promise<{ classcode: string }>;
+}) {
+  const { classcode } = await params;
 
   return (
     <main className="min-h-screen bg-white px-2 py-6 sm:px-3 lg:px-4">
@@ -42,7 +43,7 @@ export default function AttendanceTaking() {
         <p className="text-sm text-[#1f1f1f]">Active student: 02/05</p>
       </div>
       <section className="mx-auto w-full max-w-6xl border rounded-lg overflow-hidden">
-        <AttendanceCheckingList students={students} />
+        <AttendanceCheckingList />
       </section>
       <section className="mx-auto flex w-full max-w-6xl items-center justify-end gap-4 py-5">
         <p className="text-sm text-[#1f1f1f]">Start: 8:00 am</p>

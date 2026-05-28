@@ -18,7 +18,7 @@ type AttendanceCheckingListProps = {
   students?: Student[];
 };
 
-export function AttendanceCheckingList({
+export default function AttendanceCheckingList({
   students = data,
 }: AttendanceCheckingListProps) {
   const [attendanceByStudentId, setAttendanceByStudentId] = useState<
