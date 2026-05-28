@@ -21,9 +21,9 @@ type  AlertType ={
 
 const AlertDialogDemo = ({btnName,title, firstTime, secondTime}: AlertType) => {
   return (
-    <AlertDialog>
+    <AlertDialog >
       <AlertDialogTrigger asChild>
-        <Button variant='outline'>{btnName}</Button>
+        <Button className='bg-blue-600 p-5'>{btnName}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

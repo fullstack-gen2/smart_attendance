@@ -39,11 +39,13 @@ interface DataTableProps<TData, TValue> {
   showAddStudentButton?: boolean;
   studentSummaryText?: string;
   showNote?: boolean;
+  studentProfileBasePath?: string;
 }
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData> {
     expandedRowId?: string | null;
+    studentProfileBasePath?: string;
     toggleExpandedRow?: (rowId: string) => void;
   }
 }
@@ -55,6 +57,7 @@ export function DataTable<TData, TValue>({
   showAddStudentButton = true,
   studentSummaryText,
   showNote = true,
+  studentProfileBasePath,
 }: DataTableProps<TData, TValue>) {
   const params = useParams<{ classcode?: string | string[] }>();
   const pathname = usePathname();
@@ -86,6 +89,7 @@ export function DataTable<TData, TValue>({
     },
     meta: {
       expandedRowId,
+      studentProfileBasePath,
       toggleExpandedRow: (rowId: string) => {
         setExpandedRowId((current) => (current === rowId ? null : rowId));
       },
@@ -167,6 +171,25 @@ export function DataTable<TData, TValue>({
             </DropdownMenu>
           </div>
         )}
+        {
+          !showReportActions && (
+            <div className="flex justify-start text-sm items-center gap-4 text-gray-600 border px-4 py-2 rounded-lg">
+              <div>
+                <p>Date: <span className="text-black">11-Nov-2026</span></p>
+                <p className="text-right">Student(Total/ False): <span className="text-black"> 11/03</span></p>
+              </div>
+              <div>
+                <p className="text-black">|</p>
+                <p className="text-black">|</p>
+              </div>
+              <div>
+                <p >Time: <span className="text-black"> 8:00 - 12:00PM</span></p>
+                <p >Class Code: <span className="text-black">A001</span> </p>
+              </div>
+            </div>
+          )
+        }
+        
       </div>
       {showStudentActions && (
         <div className="mb-4 flex items-end justify-between gap-4">
@@ -231,7 +254,6 @@ export function DataTable<TData, TValue>({
                   !!rowData.id &&
                   hasExpandedDetails &&
                   expandedRowId === String(rowData.id);
-
                 return (
                   <React.Fragment key={row.id}>
                     <TableRow data-state={row.getIsSelected() && "selected"}>

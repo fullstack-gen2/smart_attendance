@@ -16,6 +16,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import logo from "../../../public/project-logo.png";
+import Link from "next/link";
 
 // This is sample data.
 const data = {
@@ -79,7 +80,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <div className="px-2 py-1">
-          <Image src={logo} alt="iCheck Logo" width={120} height={120} priority />
+          <Link href={"/dashboard"}>
+            <Image src={logo} alt="iCheck Logo" width={120} height={120} priority />
+          </Link>
         </div>
       </SidebarHeader>
       <SidebarContent>

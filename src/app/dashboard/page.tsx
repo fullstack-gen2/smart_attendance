@@ -27,7 +27,7 @@ export default function AdminDashboard() {
     <div className="px-5 py-1">
       <div className="mx-auto w-full">
         <div className="mb-4 flex items-start justify-between gap-4">
-          <h1 className="pr-5 text-xl font-bold">Class Info</h1>
+          <h1 className="pr-5 text-xl font-bold">Class Information</h1>
           <DropdownMenuCheckboxes />
         </div>
         {Object.entries(groupedClasses).map(([shift, classes]) => (

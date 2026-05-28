@@ -53,7 +53,7 @@ export function ClassCard({
         <InfoRow label="Class:" value={classNameValue} />
         <InfoRow label="Shift:" value={shift} />
         <InfoRow label="Time:" value={time} />
-        <InfoRow label="Student (T/F):" value={students} />
+        <InfoRow label="Student (Total / Female):" value={students} />
 
         {/* Footer */}
         <div className="mt-4 border-t border-gray-200 pt-3">

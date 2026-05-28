@@ -6,4 +6,5 @@ export type AttendanceList = {
   profile: string;
   phoneNumber: string;
   dateOfBirth: string;
+  status?: string;
 };
