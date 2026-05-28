@@ -19,7 +19,7 @@ type AttendanceCheckingListProps = {
   onActiveStudentCountChange?: (count: number) => void;
 };
 
-export function AttendanceCheckingList({
+export default function AttendanceCheckingList({
   students = data,
   onActiveStudentCountChange,
 }: AttendanceCheckingListProps) {
@@ -72,7 +72,7 @@ export function AttendanceCheckingList({
   const renderStatus = (studentId: string) => {
     const rawStatus = attendanceByStudentId[studentId];
     if (rawStatus === null) {
-      return <span className="text-gray-400">{AttendanceStatus.PENDING}</span>;
+      return <span>{AttendanceStatus.PENDING}</span>;
     }
 
     const status = rawStatus;
@@ -87,7 +87,7 @@ export function AttendanceCheckingList({
           type="button"
           onClick={() => toggleExpanded(studentId)}
           aria-label={isExpanded ? "Collapse details" : "Expand details"}
-          className="inline-flex h-6 w-6 items-center justify-center rounded-sm text-black transition hover:bg-gray-100"
+          className="inline-flex h-6 w-6 items-center justify-center rounded-sm transition hover:bg-gray-100"
         >
           {isExpanded ? (
             <ChevronUp className="h-4 w-4" />
@@ -120,13 +120,14 @@ export function AttendanceCheckingList({
       <TableBody>
         {students.map((student, index) => {
           const status = attendanceByStudentId[student.id];
+          const rowTextClass = status === null ? "text-gray-400" : "text-black";
           const isExpanded = expandedRowId === student.id;
           const hasDetails =
             status === AttendanceStatus.PENDING || status === AttendanceStatus.LATE;
 
           return (
             <Fragment key={student.id}>
-              <TableRow>
+              <TableRow className={rowTextClass}>
                 <TableCell className="font-medium text-center">
                   {String(index + 1).padStart(3, "0")}
                 </TableCell>

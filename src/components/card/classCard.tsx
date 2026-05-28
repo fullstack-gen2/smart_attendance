@@ -1,7 +1,5 @@
-// components/ui/class-card.tsx
-
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 
 interface ClassCardProps {
@@ -27,43 +25,33 @@ export function ClassCard({
   href,
   headerClassName = "bg-[#273C97]",
 }: ClassCardProps) {
+  const shortTitle = title.length > 15 ? `${title.slice(0, 15)}...` : title;
+
   const cardContent = (
-    <Card className="flex h-[320px] w-[320px] flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white p-0">
+    <Card className="mx-auto w-full max-w-65.5 overflow-hidden rounded-xl border border-gray-200 bg-white p-0 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
       <div
-        className={`flex items-center justify-between px-4 py-3 text-white ${headerClassName}`}
+        className={`flex items-center justify-between px-3 py-5 text-white ${headerClassName}`}
       >
-        <h2 className="text-3xl font-bold leading-none">{title}</h2>
+        <h2 className="truncate text-xl font-bold leading-tight" title={title}>
+          {shortTitle}
+        </h2>
 
-        <Badge className="bg-transparent p-0 text-sm font-medium text-white hover:bg-transparent">
-          {status}
-        </Badge>
+        <Badge className="bg-transparent text-md">{status}</Badge>
       </div>
-      <CardContent className="flex flex-1 flex-col px-4 py-3 text-[18px]">
-        <div className="space-y-2">
-        <div className="flex">
-          <span className="w-[128px] font-medium text-black">Class:</span>
-          <span className="text-black">{classNameValue}</span>
-        </div>
 
-        <div className="flex">
-          <span className="w-[128px] font-medium text-black">Shift:</span>
-          <span className="text-black">{shift}</span>
-        </div>
+      <CardContent className="space-y-1 px-6 py-3">
+        <InfoRow label="Class:" value={classNameValue} />
+        <InfoRow label="Shift:" value={shift} />
+        <InfoRow label="Time:" value={time} />
+        <InfoRow label="Student (T/F):" value={students} />
 
-        <div className="flex">
-          <span className="w-[128px] font-medium text-black">Time:</span>
-          <span className="whitespace-nowrap text-black">{time}</span>
-        </div>
-
-        <div className="flex">
-          <span className="w-[128px] font-medium text-black">Student (T/F):</span>
-          <span className="text-black">{students}</span>
-        </div>
-        </div>
-
-        <div className="mt-auto border-t border-gray-300 pt-3"></div>
-        <div className="flex justify-end pt-2">
-          <span className="text-sm text-black">code: {code}</span>
+        <div className="mt-4 border-t border-gray-200 pt-3">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-500">Class Code</span>
+            <span className="rounded-md bg-gray-100 px-2 py-1 text-sm font-semibold tracking-wide text-gray-800">
+              {code}
+            </span>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -78,4 +66,18 @@ export function ClassCard({
   }
 
   return cardContent;
+}
+
+interface InfoRowProps {
+  label: string;
+  value: string;
+}
+
+function InfoRow({ label, value }: InfoRowProps) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className="text-sm font-medium text-gray-500">{label}</span>
+      <span className="text-sm font-semibold text-gray-900">{value}</span>
+    </div>
+  );
 }

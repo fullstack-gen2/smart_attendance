@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Providers from "@/components/provider/providers";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { TooltipProvider } from "@/components/ui/tooltip";
+import StoreProvider from "./StoreProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,15 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-screen flex flex-col">
-        {/* <TooltipProvider>{children}</TooltipProvider> */}
-        <Providers>
+    <html lang="en">
+      <body>
+        <StoreProvider>
+          <TooltipProvider>
             {children}
-        </Providers>
+          </TooltipProvider>
+        </StoreProvider>
       </body>
     </html>
   );

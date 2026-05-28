@@ -1,9 +1,10 @@
-import CreatingClassForm from "@/hooks/form/create_classes";
+import CreatingClassForm from "@/components/form/create_classes";
 
-export default function CreateClass(){
-    return (
-        <main className="w-95 mx-auto border p-4 rounded-xl">
-            <CreatingClassForm/>
-        </main>
-)
+export default function CreateClass() {
+  return (
+    <main className="mx-auto border py-6 rounded-xl px-8">
+      <CreatingClassForm />
+    </main>
+  );
 }
+    

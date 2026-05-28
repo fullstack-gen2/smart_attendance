@@ -5,7 +5,7 @@ import { ListFilter } from "lucide-react";
 import { LuUserSearch } from "react-icons/lu";
 import * as React from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -64,9 +64,13 @@ export function DataTable<TData, TValue>({
   showAttendanceTotals = false,
 }: DataTableProps<TData, TValue>) {
   const params = useParams<{ classcode?: string | string[] }>();
+  const pathname = usePathname();
   const classcode = Array.isArray(params.classcode)
     ? params.classcode[0]
     : params.classcode;
+  const showReportActions = classcode
+    ? pathname.startsWith(`/class/${classcode}/report`)
+    : pathname.includes("/report");
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -134,11 +138,11 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        {showToolbarIcons && (
+        {showToolbarIcons && showReportActions && (
           <div className="flex items-center gap-4">
             <Link
               href={classcode ? `/class/${classcode}/class_list` : "/class"}
-              aria-label="Class List"
+              aria-label="Student list options"
               className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 transition hover:bg-gray-50"
             >
               <LuUserSearch className="h-5 w-5" />
@@ -154,18 +158,14 @@ export function DataTable<TData, TValue>({
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40 p-1">
-                <DropdownMenuItem
-                  asChild
-                  className="justify-center text-sm text-gray-500 hover:text-black focus:text-black"
-                >
-                  <Link href={classcode ? `/class/${classcode}/report` : "/class"}>
+                <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
+                  <Link
+                    href={classcode ? `/class/${classcode}/report` : "/class"}
+                  >
                     Day Report
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  asChild
-                  className="justify-center text-sm text-gray-500 hover:text-black focus:text-black"
-                >
+                <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
                   <Link
                     href={
                       classcode
@@ -176,10 +176,7 @@ export function DataTable<TData, TValue>({
                     Weekly Report
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  asChild
-                  className="justify-center text-sm text-gray-500 hover:text-black focus:text-black"
-                >
+                <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
                   <Link
                     href={
                       classcode
@@ -190,10 +187,7 @@ export function DataTable<TData, TValue>({
                     Monthly Report
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  asChild
-                  className="justify-center text-sm text-gray-500 hover:text-black focus:text-black"
-                >
+                <DropdownMenuItem asChild className="justify-center text-sm text-gray-500 hover:text-black focus:text-black">
                   <Link
                     href={
                       classcode

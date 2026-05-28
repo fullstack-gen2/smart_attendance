@@ -38,7 +38,7 @@ export default async function StartPage({
   const data = await getData();
 
   return (
-    <main className="min-h-screen bg-white px-2 py-6 sm:px-3 lg:px-4">
+    <main className="min-h-screen bg-white px-2 sm:px-3 lg:px-4">
       <section className="mx-auto mb-2 w-full max-w-6xl bg-[#ffffff] px-2">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -59,7 +59,7 @@ export default async function StartPage({
           ProgramType: {currentClass.programType}
         </p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
-          តារាងវត្តមានសិស្ស-Student Attendance List
+          Student Attendance List
         </h2>
       </section>
       <div className="mx-auto w-full max-w-6xl px-2 text-gray-500">

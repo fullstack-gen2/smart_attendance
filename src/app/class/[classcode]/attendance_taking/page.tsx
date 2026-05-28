@@ -1,5 +1,6 @@
 "use client";
-import { AttendanceCheckingList } from "@/components/table_class/check_attendance";
+
+import AttendanceCheckingList from "@/components/table_class/check_attendance";
 import { Input } from "@/components/ui/input";
 import { classInfo } from "@/lib/mockupData/data";
 import { data as students } from "@/lib/mockupData/student";
@@ -78,7 +79,7 @@ export default function AttendanceTaking() {
           ProgramType: {currentClass?.programType ?? "-"}
         </p>
         <h2 className="mt-2 text-3xl leading-tight text-[#1f1f1f]">
-          តារាងវត្តមានសិស្ស-Student Attendance List
+          Student Attendance List
         </h2>
       </section>
       <div className="mx-auto flex w-full max-w-6xl items-end justify-between gap-4 pb-4">

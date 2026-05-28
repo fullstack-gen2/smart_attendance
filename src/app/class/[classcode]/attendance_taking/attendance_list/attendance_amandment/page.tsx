@@ -1,5 +1,5 @@
 "use client";
-import { AttendanceCheckingList } from "@/components/table_class/check_attendance";
+import AttendanceCheckingList from "@/components/table_class/check_attendance";
 import { Input } from "@/components/ui/input";
 import { classInfo } from "@/lib/mockupData/data";
 import { data as students } from "@/lib/mockupData/student";
